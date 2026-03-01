@@ -1,0 +1,173 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-playfair), serif;
+  --font-body: var(--font-playfair), serif;
+  --font-heading: var(--font-playfair), serif;
+
+  --color-maroon: #800020;
+  --color-maroon-light: #a52828;
+  --color-maroon-dark: #5c0f0f;
+
+  --color-gold: #d4af37;
+  --color-gold-light: #f1e5ac;
+  --color-gold-dark: #b8960b;
+
+  --color-cream: #fef5e7;
+  --color-cream-dark: #f3e5d0;
+
+  --color-text-dark: #2c1810;
+  --color-text-gray: #5d4037;
+  --color-border-color: #e6d5c3;
+
+  --color-background: var(--color-cream);
+  --color-foreground: var(--color-text-dark);
+}
+
+@layer base {
+  :root {
+    --background: #fef5e7;
+    --foreground: #2c1810;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Royal Elements - Directly from legacy SwaadDesh */
+  .hero-royal {
+    position: relative;
+    background-image: linear-gradient(rgba(74, 4, 4, 0.85), rgba(43, 2, 2, 0.85)), url('/herobackground.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-bottom: 6px solid var(--color-gold);
+  }
+
+  .hero-royal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4af37' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.2;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .highlight-text {
+    background: linear-gradient(135deg, #ffd700 0%, #d4af37 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+  }
+
+  .highlight-text::after {
+    content: '';
+    position: absolute;
+    bottom: 8px;
+    left: 0;
+    width: 60%;
+    height: 8px;
+    background: rgba(212, 175, 55, 0.3);
+    z-index: -1;
+    transform: rotate(-2deg);
+  }
+
+  .royal-separator {
+    width: 120px;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, #d4af37, transparent);
+    margin: 0 auto 20px;
+    border-radius: 2px;
+    position: relative;
+  }
+
+  .royal-separator::after {
+    content: '❖';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #d4af37;
+    font-size: 20px;
+    background: var(--color-cream);
+    padding: 0 10px;
+  }
+
+  /* End Royal Elements */
+
+  /* Typography Utilities */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading text-maroon;
+  }
+
+  /* Text Selection */
+  ::selection {
+    background: #800020;
+    /* maroon */
+    color: #d4af37;
+    /* gold */
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--background);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #e6d5c3;
+    border-radius: 20px;
+    border: 3px solid var(--background);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #800020;
+  }
+}
+
+@layer utilities {
+  .animate-blob {
+    animation: blob 7s infinite;
+  }
+
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+
+  @keyframes blob {
+    0% {
+      transform: translate(0px, 0px) scale(1);
+    }
+
+    33% {
+      transform: translate(30px, -50px) scale(1.1);
+    }
+
+    66% {
+      transform: translate(-20px, 20px) scale(0.9);
+    }
+
+    100% {
+      transform: translate(0px, 0px) scale(1);
+    }
+  }
+}
