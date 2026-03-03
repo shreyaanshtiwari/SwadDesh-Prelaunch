@@ -12,7 +12,7 @@ export const Hero = () => {
     };
 
     return (
-        <section className="relative min-h-[60vh] flex items-center justify-center pt-32 pb-6 sm:pt-36 sm:pb-10 lg:pt-40 overflow-hidden bg-[#2b0202] border-b-[6px] border-[#d4af37]">
+        <section className="relative min-h-[60vh] flex items-center justify-center pt-28 pb-4 sm:pt-36 sm:pb-10 lg:pt-40 overflow-hidden bg-[#2b0202] border-b-[6px] border-[#d4af37]">
 
             {/* Immersive Background */}
             <div className="absolute inset-0 z-0">
@@ -38,24 +38,24 @@ export const Hero = () => {
 
                     {/* Badge */}
                     <div className="flex justify-center lg:justify-start">
-                        <div className="inline-flex items-center gap-3 bg-black/40 border border-[#d4af37]/40 backdrop-blur-md px-5 py-2 rounded-full shadow-[0_4px_20px_rgba(212,175,55,0.1)]">
-                            <span className="text-[#ffd700] text-sm md:text-base">✨</span>
-                            <span className="text-[#fef5e7] text-sm md:text-base font-bold tracking-[3px] uppercase font-heading">
-                                The Essence of Royal India
+                        <div className="inline-flex items-center gap-2 sm:gap-3 bg-black/40 border border-[#d4af37]/40 backdrop-blur-md px-4 py-1.5 sm:px-5 sm:py-2 rounded-full shadow-[0_4px_20px_rgba(212,175,55,0.1)] max-w-full">
+                            <span className="text-[#ffd700] text-xs sm:text-sm md:text-base">✨</span>
+                            <span className="text-[#fef5e7] text-[10px] xs:text-xs sm:text-sm md:text-base font-bold tracking-[2px] sm:tracking-[3px] uppercase font-heading whitespace-nowrap">
+                                Taste Your Roots
                             </span>
                         </div>
                     </div>
 
                     {/* Main Headline */}
                     <div className="space-y-4">
-                        <h1 className="text-4xl sm:text-6xl md:text-[80px] font-black leading-[1.1] md:leading-[1.05] text-[#fef5e7] font-heading drop-shadow-xl">
+                        <h1 className="text-3xl sm:text-6xl md:text-[80px] font-black leading-[1.1] md:leading-[1.05] text-[#fef5e7] font-heading drop-shadow-xl">
                             Taste the <br className="hidden md:block" />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ffd700] via-[#d4af37] to-[#b8860b]">
                                 Royal Legacy
                             </span>
                         </h1>
-                        <p className="text-[#e6d5c3] text-base md:text-lg lg:text-xl xl:text-2xl font-body font-light leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                            Embark on a culinary journey through time. We deliver forgotten regional delicacies, crafted by master artisans, straight to your grand dining table.
+                        <p className="text-[#e6d5c3] text-[13px] sm:text-lg lg:text-xl xl:text-2xl font-body font-light leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                            From the nostalgic flavors of home to hidden regional gems—we bring back the authentic traditions and familiar feelings you've been searching for.
                         </p>
                     </div>
 
@@ -127,14 +127,14 @@ export const Hero = () => {
                         </div>
 
                         {/* Floating Floating Badges */}
-                        <div className="absolute top-[10%] -left-[10%] sm:-left-[5%] z-20 bg-gradient-to-br from-[#ffffff] to-[#fffcf5] p-2 sm:p-3 rounded-2xl shadow-[0_15px_35px_rgba(0,0,0,0.3)] border border-[#d4af37]/30 animate-[float_4s_ease-in-out_infinite] backdrop-blur-md">
+                        <div className="absolute top-[10%] -left-[5%] sm:-left-[10%] lg:-left-[5%] z-20 bg-gradient-to-br from-[#ffffff] to-[#fffcf5] p-2 sm:p-3 rounded-2xl shadow-[0_15px_35px_rgba(0,0,0,0.3)] border border-[#d4af37]/30 animate-[float_4s_ease-in-out_infinite] backdrop-blur-md">
                             <div className="flex items-center gap-2 sm:gap-3 border border-[#d4af37]/20 rounded-xl px-2 py-1 sm:px-4 sm:py-2 bg-white/50">
                                 <span className="text-lg sm:text-2xl">🌶️</span>
                                 <span className="font-bold text-[#4a0404] text-[10px] sm:text-sm uppercase tracking-wider font-heading">Rich Spices</span>
                             </div>
                         </div>
 
-                        <div className="absolute bottom-[20%] -right-[5%] z-20 bg-gradient-to-br from-[#ffffff] to-[#fffcf5] p-2 sm:p-3 rounded-2xl shadow-[0_15px_35px_rgba(0,0,0,0.3)] border border-[#d4af37]/30 animate-[float_5s_ease-in-out_infinite_alternate] backdrop-blur-md">
+                        <div className="absolute bottom-[20%] -right-[2%] sm:-right-[5%] z-20 bg-gradient-to-br from-[#ffffff] to-[#fffcf5] p-2 sm:p-3 rounded-2xl shadow-[0_15px_35px_rgba(0,0,0,0.3)] border border-[#d4af37]/30 animate-[float_5s_ease-in-out_infinite_alternate] backdrop-blur-md">
                             <div className="flex items-center gap-2 sm:gap-3 border border-[#d4af37]/20 rounded-xl px-2 py-1 sm:px-4 sm:py-2 bg-white/50">
                                 <span className="text-lg sm:text-2xl">🍯</span>
                                 <span className="font-bold text-[#4a0404] text-[10px] sm:text-sm uppercase tracking-wider font-heading">100% Natural</span>

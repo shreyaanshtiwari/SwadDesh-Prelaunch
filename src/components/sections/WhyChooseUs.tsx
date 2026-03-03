@@ -32,13 +32,13 @@ export const WhyChooseUs = () => {
 
             <div className="text-center mb-4 lg:mb-10 space-y-4 relative z-10 px-4">
                 <div className="flex justify-center mb-6">
-                    <span className="inline-flex items-center gap-2 font-bold text-[#b8860b] uppercase tracking-[4px] text-xs px-4 py-1.5 border border-[#d4af37]/30 rounded-full bg-white/50 backdrop-blur-sm shadow-sm">
-                        <span className="w-1.5 h-1.5 rotate-45 bg-[#8fc0f0d]"></span>
+                    <span className="inline-flex items-center gap-2 font-bold text-[#b8860b] uppercase tracking-[2px] sm:tracking-[4px] text-[10px] sm:text-xs px-3 sm:px-4 py-1.5 border border-[#d4af37]/30 rounded-full bg-white/50 backdrop-blur-sm shadow-sm whitespace-nowrap">
+                        <span className="w-1.5 h-1.5 rotate-45 bg-[#8b0a09]"></span>
                         The SwaadDesh Standard
-                        <span className="w-1.5 h-1.5 rotate-45 bg-[#8fc0f0d]"></span>
+                        <span className="w-1.5 h-1.5 rotate-45 bg-[#8b0a09]"></span>
                     </span>
                 </div>
-                <h2 className="text-3xl md:text-[56px] font-black text-[#4a0404] font-heading leading-tight drop-shadow-sm">
+                <h2 className="text-2xl sm:text-3xl md:text-[56px] font-black text-[#4a0404] font-heading leading-tight drop-shadow-sm whitespace-nowrap">
                     Why Choose <i className="text-[#8f0f0d] font-light">SwaadDesh?</i>
                 </h2>
                 <div className="flex items-center justify-center gap-4 py-4">

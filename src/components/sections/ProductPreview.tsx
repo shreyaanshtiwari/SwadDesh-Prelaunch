@@ -43,7 +43,7 @@ export const ProductPreview = () => {
                             {/* Decorative Dotted Frame (Outer) */}
                             <div className="absolute inset-[-12px] border-[2px] border-[#d4af37] border-dashed rounded-[20px] opacity-40 z-0 pointer-events-none transition-opacity duration-700 group-hover:opacity-60"></div>
 
-                            <Link href="/products" className="relative z-10 w-full rounded-2xl overflow-hidden bg-gradient-to-br from-[#2b0202] to-[#4a0404] border-[1px] border-[#d4af37]/40 shadow-[0_20px_60px_rgba(107,10,9,0.12)] transition-all duration-700 hover:shadow-[0_20px_60px_rgba(212,175,55,0.15)] flex flex-col h-full hover:-translate-y-1">
+                            <Link href={`/products/${displayProducts[0].id}`} className="relative z-10 w-full rounded-2xl overflow-hidden bg-gradient-to-br from-[#2b0202] to-[#4a0404] border-[1px] border-[#d4af37]/40 shadow-[0_20px_60px_rgba(107,10,9,0.12)] transition-all duration-700 hover:shadow-[0_20px_60px_rgba(212,175,55,0.15)] flex flex-col h-full hover:-translate-y-1">
                                 {/* Regal Corner Ornaments */}
                                 <div className="absolute top-0 left-0 w-8 h-8 border-t border-l border-[#d4af37]/60 m-3 z-20 pointer-events-none"></div>
                                 <div className="absolute top-0 right-0 w-8 h-8 border-t border-r border-[#d4af37]/60 m-3 z-20 pointer-events-none"></div>
@@ -88,7 +88,7 @@ export const ProductPreview = () => {
                                 {/* Decorative Dotted Frame (Outer) */}
                                 <div className="absolute inset-[-10px] border-[2px] border-[#d4af37] border-dashed rounded-[20px] opacity-40 z-0 pointer-events-none transition-opacity duration-700 group-hover:opacity-60"></div>
 
-                                <Link href="/products" className="relative z-10 w-full rounded-2xl overflow-hidden bg-gradient-to-br from-[#2b0202] to-[#4a0404] border-[1px] border-[#d4af37]/40 shadow-[0_20px_60px_rgba(107,10,9,0.12)] transition-all duration-700 hover:shadow-[0_20px_60px_rgba(212,175,55,0.15)] flex flex-col sm:flex-row h-full hover:-translate-y-1">
+                                <Link href={`/products/${displayProducts[1].id}`} className="relative z-10 w-full rounded-2xl overflow-hidden bg-gradient-to-br from-[#2b0202] to-[#4a0404] border-[1px] border-[#d4af37]/40 shadow-[0_20px_60px_rgba(107,10,9,0.12)] transition-all duration-700 hover:shadow-[0_20px_60px_rgba(212,175,55,0.15)] flex flex-col sm:flex-row h-full hover:-translate-y-1">
                                     {/* Decorative Lines */}
                                     <div className="absolute top-2 left-2 bottom-2 right-2 border border-[#d4af37]/10 pointer-events-none z-20 transition-colors group-hover:border-[#d4af37]/30"></div>
 
@@ -118,7 +118,7 @@ export const ProductPreview = () => {
                                 {/* Decorative Dotted Frame (Outer) */}
                                 <div className="absolute inset-[-10px] border-[2px] border-[#d4af37] border-dashed rounded-[20px] opacity-40 z-0 pointer-events-none transition-opacity duration-700 group-hover:opacity-60"></div>
 
-                                <Link href="/products" className="relative z-10 w-full rounded-2xl overflow-hidden bg-gradient-to-br from-[#2b0202] to-[#4a0404] border-[1px] border-[#d4af37]/40 shadow-[0_20px_60px_rgba(107,10,9,0.12)] transition-all duration-700 hover:shadow-[0_20px_60px_rgba(212,175,55,0.15)] flex flex-col sm:flex-row h-full hover:-translate-y-1">
+                                <Link href={`/products/${displayProducts[2].id}`} className="relative z-10 w-full rounded-2xl overflow-hidden bg-gradient-to-br from-[#2b0202] to-[#4a0404] border-[1px] border-[#d4af37]/40 shadow-[0_20px_60px_rgba(107,10,9,0.12)] transition-all duration-700 hover:shadow-[0_20px_60px_rgba(212,175,55,0.15)] flex flex-col sm:flex-row h-full hover:-translate-y-1">
                                     {/* Decorative Lines */}
                                     <div className="absolute top-2 left-2 bottom-2 right-2 border border-[#d4af37]/10 pointer-events-none z-20 transition-colors group-hover:border-[#d4af37]/30"></div>
 
@@ -148,13 +148,8 @@ export const ProductPreview = () => {
                 </div>
 
                 <div className="mt-10 lg:mt-12 text-center relative z-10 flex flex-col items-center px-4 w-full">
-                    <Link href="/products" className="group relative inline-flex items-center justify-center gap-2 sm:gap-3 px-4 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-[#d4af37] to-[#b8860b] text-[#4a0404] font-bold tracking-[1px] sm:tracking-[2px] uppercase rounded-full overflow-hidden transition-all duration-300 hover:scale-105 shadow-[0_4px_15px_rgba(212,175,55,0.3)] hover:shadow-[0_10px_30px_rgba(212,175,55,0.5)] border border-[#ffd700] w-full max-w-[280px] sm:max-w-max">
-                        <span className="relative z-10 whitespace-nowrap text-[10px] sm:text-base">Discover All Pre-launch Products</span>
-                        <span className="relative z-10 group-hover:translate-x-1 transition-transform">→</span>
-                        <div className="absolute inset-0 bg-gradient-to-r from-[#ffd700] via-[#d4af37] to-[#ffd700] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    </Link>
-                    <div className="mt-4 text-[#8b6914] text-sm font-heading italic">
-                        Explore our full catalog of 5 heritage specialties
+                    <div className="mt-4 text-[#8b6914] text-base sm:text-lg font-heading italic">
+                        Experience our exclusive collection of 3 heritage specialties
                     </div>
                 </div>
             </div>

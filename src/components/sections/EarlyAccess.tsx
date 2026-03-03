@@ -145,7 +145,7 @@ export const EarlyAccess = () => {
                                     type="submit"
                                     fullWidth
                                     disabled={status === 'loading'}
-                                    className="relative bg-gradient-to-r from-[#d4af37] to-[#b8860b] text-[#2b0202] hover:shadow-[0_10px_30px_rgba(212,175,55,0.4)] border border-[#ffd700]/50 font-bold tracking-[2px] uppercase py-4 rounded-xl text-sm transition-all duration-300 hover:scale-[1.02]"
+                                    className="relative bg-gradient-to-r from-[#d4af37] to-[#b8860b] text-[#2b0202] hover:shadow-[0_10px_30px_rgba(212,175,55,0.4)] border border-[#ffd700]/50 font-bold tracking-[1px] sm:tracking-[2px] uppercase py-4 rounded-xl text-[10px] sm:text-sm transition-all duration-300 hover:scale-[1.02] whitespace-nowrap"
                                 >
                                     {status === 'loading' ? 'Securing Spot...' : 'Claim Early Access'}
                                 </Button>

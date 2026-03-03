@@ -62,7 +62,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${outfit.variable} ${playfair.variable} font-body bg-cream text-text-dark antialiased selection:bg-maroon selection:text-gold overflow-x-hidden`}>
-        <Navbar />
         {children}
       </body>
     </html>
