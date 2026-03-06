@@ -5,16 +5,16 @@ import { Section } from '@/components/ui/Section';
 
 const faqs = [
     {
-        question: 'What is SwaadDesh?',
-        answer: 'SwaadDesh is a premium brand dedicated to bringing you the most authentic, hidden regional and cultural, traditionally prepared foods and delicacies sourced directly from their roots in India, preserving original recipes and techniques.',
+        question: 'What is SwadDesh?',
+        answer: 'SwadDesh is a premium brand dedicated to bringing you the most authentic, hidden regional and cultural, traditionally prepared foods and delicacies sourced directly from their roots in India, preserving original recipes and techniques.',
     },
     {
         question: 'When will the store officially launch?',
         answer: 'We are currently adding finishes to our initial product line. By joining the waiting list today, you will receive an exclusive early access link before our public launch and an assured discount.',
     },
     {
-        question: 'What is the royal legacy behind SwaadDesh?',
-        answer: 'SwaadDesh started because we truly missed the grand, authentic taste of the past. To bring that magic back, we travel across India looking for forgotten, age-old recipes so that you can experience these true royal flavors right at your table today.',
+        question: 'What is the royal legacy behind SwadDesh?',
+        answer: 'SwadDesh started because we truly missed the grand, authentic taste of the past. To bring that magic back, we travel across India looking for forgotten, age-old recipes so that you can experience these true royal flavors right at your table today.',
     }
 ];
 

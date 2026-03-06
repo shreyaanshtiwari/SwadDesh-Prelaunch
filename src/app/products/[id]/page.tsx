@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const p = await params;
     const product = productStories.find((p_obj) => p_obj.id === p.id);
     return {
-        title: product ? `${product.name} | SwaadDesh` : 'Product Not Found',
+        title: product ? `${product.name} | SwadDesh` : 'Product Not Found',
         description: product?.description,
     };
 }
@@ -32,10 +32,10 @@ export default async function ProductDetailPage({ params }: Props) {
             {/* Header / Back Navigation */}
             <div className="fixed top-0 left-0 right-0 z-50 bg-[#2b0202]/90 backdrop-blur-md border-b border-[#d4af37]/30 px-4 py-4">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
-                    <Link href="/products" className="text-[#ffd700] flex items-center gap-2 font-bold uppercase tracking-widest text-xs">
-                        ← Back to Collection
+                    <Link href="/" className="text-[#ffd700] flex items-center gap-2 font-bold uppercase tracking-widest text-xs">
+                        ← Back to Home
                     </Link>
-                    <div className="text-[#ffd700] text-sm font-heading italic">SwaadDesh Heritage</div>
+                    <div className="text-[#ffd700] text-sm font-heading italic">SwadDesh Heritage</div>
                 </div>
             </div>
 

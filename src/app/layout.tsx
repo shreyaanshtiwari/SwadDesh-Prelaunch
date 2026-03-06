@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+export const dynamic = 'force-dynamic';
 import { Outfit, Playfair_Display } from 'next/font/google';
 import { Navbar } from '@/components/ui/Navbar';
 import './globals.css';
@@ -16,20 +17,20 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: 'SwaadDesh | Authentic Taste Brand - Coming Soon',
-  description: 'Experience the rich culinary heritage of India with SwaadDesh. We bring traditional, handcrafted, and authentic flavors straight to your doorstep. Join our waitlist for early access.',
-  keywords: ['SwaadDesh', 'indian food', 'authentic food', 'traditional Indian recipes', 'organic ghee', 'handcrafted spices', 'Indian pickles'],
+  title: 'SwadDesh | Authentic Taste Brand - Coming Soon',
+  description: 'Experience the rich culinary heritage of India with SwadDesh. We bring traditional, handcrafted, and authentic flavors straight to your doorstep. Join our waitlist for early access.',
+  keywords: ['SwadDesh', 'indian food', 'authentic food', 'traditional Indian recipes', 'organic ghee', 'handcrafted spices', 'Indian pickles'],
   openGraph: {
-    title: 'SwaadDesh | Authentic Taste Brand - Coming Soon',
-    description: 'Experience the rich culinary heritage of India with SwaadDesh. Join our waitlist for exclusive early access and discounts.',
-    url: 'https://swaaddesh.com',
-    siteName: 'SwaadDesh',
+    title: 'SwadDesh | Authentic Taste Brand - Coming Soon',
+    description: 'Experience the rich culinary heritage of India with SwadDesh. Join our waitlist for exclusive early access and discounts.',
+    url: 'https://swaddesh.com',
+    siteName: 'SwadDesh',
     images: [
       {
-        url: 'https://swaaddesh.com/og-image.jpg', // Placeholder
+        url: 'https://swaddesh.com/og-image.jpg', // Placeholder
         width: 1200,
         height: 630,
-        alt: 'SwaadDesh - The Authentic Taste of Home',
+        alt: 'SwadDesh - The Authentic Taste of Home',
       },
     ],
     locale: 'en_IN',
@@ -37,9 +38,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'SwaadDesh | Authentic Taste Brand - Coming Soon',
-    description: 'Experience the rich culinary heritage of India with SwaadDesh. Join our waitlist.',
-    images: ['https://swaaddesh.com/og-image.jpg'], // Placeholder
+    title: 'SwadDesh | Authentic Taste Brand - Coming Soon',
+    description: 'Experience the rich culinary heritage of India with SwadDesh. Join our waitlist.',
+    images: ['https://swaddesh.com/og-image.jpg'], // Placeholder
   },
   robots: {
     index: true,

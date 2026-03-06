@@ -33,9 +33,9 @@ export const About = () => {
                             <span className="inline-block text-[#b8860b] font-bold tracking-[4px] uppercase text-[10px] sm:text-sm border-b border-[#d4af37]/40 pb-2 drop-shadow-none whitespace-nowrap">
                                 Taste Your Roots
                             </span>
-                            <h2 className="text-3xl md:text-[48px] lg:text-[60px] font-black text-[#4a0404] font-heading leading-tight drop-shadow-sm">
-                                Finding the Flavor <br />
-                                <i className="text-[#800020] font-light">You've Been Missing</i>
+                            <h2 className="text-3xl md:text-[45px] lg:text-[52px] xl:text-[60px] font-black text-[#4a0404] font-heading leading-tight drop-shadow-sm">
+                                <span className="block lg:whitespace-nowrap">Finding the Flavor</span>
+                                <i className="block lg:whitespace-nowrap text-[#800020] font-light">You've Been Missing</i>
                             </h2>
                             <div className="royal-separator !ml-0 hidden lg:block"></div>
                         </div>
@@ -45,7 +45,7 @@ export const About = () => {
                                 "Hum sab ne kabhi na kabhi, kisi na kisi jagah ka swaad miss kiya hai. Ghar ka. Shehar ka. Ya bachpan ka."
                             </p>
                             <p className="text-base sm:text-lg">
-                                The problem isn't the taste—it's that the world has replaced soul with shortcuts. At SwaadDesh, we believe you shouldn't have to settle for factory-made imitations of the flavors that define you.
+                                The problem isn't the taste—it's that the world has replaced soul with shortcuts. At SwadDesh, we believe you shouldn't have to settle for factory-made imitations of the flavors that define you.
                             </p>
                         </div>
 
@@ -60,7 +60,7 @@ export const About = () => {
                                     </div>
                                     <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-gradient-to-br from-[#ffffff] to-[#fffcf5] p-4 rounded-xl border border-[#d4af37]/20 shadow-[0_4px_15px_rgba(212,175,55,0.05)]">
                                         <h4 className="font-bold text-[#4a0404] font-heading">Beyond a Service</h4>
-                                        <p className="text-sm text-[#5d4037] mt-1">SwaadDesh isn't just about delivery; it's about that familiar feeling of belonging that comes with a bite of home.</p>
+                                        <p className="text-sm text-[#5d4037] mt-1">SwadDesh isn't just about delivery; it's about that familiar feeling of belonging that comes with a bite of home.</p>
                                     </div>
                                 </div>
 

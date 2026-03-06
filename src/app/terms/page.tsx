@@ -24,7 +24,7 @@ export default function TermsOfService() {
 
                     <div className="space-y-8 text-[#5d4037] leading-relaxed prose-p:mb-4 prose-h2:text-2xl prose-h2:font-heading prose-h2:text-[#4a0404] prose-h2:font-bold prose-h2:mb-4 prose-h2:mt-8 prose-h3:text-xl prose-h3:font-heading prose-h3:text-[#8f0f0d] prose-h3:mt-6 prose-h3:mb-3 prose-li:mb-2 prose-ul:list-disc prose-ul:pl-6">
                         <h2>1. Agreement to Terms</h2>
-                        <p>Welcome to SwaadDesh. Currently, we operate as a informational pre-launch website. By accessing or using our website, you agree to be bound by these Terms. If you disagree with any part of the terms, you may not access the website.</p>
+                        <p>Welcome to SwadDesh. Currently, we operate as a informational pre-launch website. By accessing or using our website, you agree to be bound by these Terms. If you disagree with any part of the terms, you may not access the website.</p>
 
                         <h2>2. Waitlist and Early Access</h2>
                         <p>By joining our waitlist, you agree to provide accurate information (your name and email address) for the purpose of receiving updates about our launch and exclusive early-bird privileges. We reserve the right to limit waitlist spaces or revoke early-access offers at our discretion to prevent abuse.</p>
@@ -33,10 +33,10 @@ export default function TermsOfService() {
                         <p>The content, layout, design, data, graphics, and products showcased on this website are protected by intellectual property laws. You may not copy, reproduce, or use our branding or product previews for commercial purposes without our express permission.</p>
 
                         <h2>4. Product Information</h2>
-                        <p>SwaadDesh aims to provide authentic regional Indian delicacies. As we are currently in a pre-launch phase, all descriptions of products, planned offerings, and any tentative pricing mentioned on this site are indicative and subject to change before our official launch.</p>
+                        <p>SwadDesh aims to provide authentic regional Indian delicacies. As we are currently in a pre-launch phase, all descriptions of products, planned offerings, and any tentative pricing mentioned on this site are indicative and subject to change before our official launch.</p>
 
                         <h2>5. Disclaimer</h2>
-                        <p>The materials on SwaadDesh&apos;s website are provided on an &apos;as is&apos; basis. As this is a pre-launch informational site, we do not currently sell products or process transactions through this website.</p>
+                        <p>The materials on SwadDesh&apos;s website are provided on an &apos;as is&apos; basis. As this is a pre-launch informational site, we do not currently sell products or process transactions through this website.</p>
 
                         <h2>6. Future Updates</h2>
                         <p>These Terms of Service will be updated significantly once our e-commerce platform goes live for public purchasing. Continued use of the website after such changes will constitute consent to the new terms.</p>

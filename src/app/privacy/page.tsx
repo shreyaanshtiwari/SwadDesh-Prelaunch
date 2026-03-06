@@ -24,7 +24,7 @@ export default function PrivacyPolicy() {
 
                     <div className="space-y-8 text-[#5d4037] leading-relaxed prose-p:mb-4 prose-h2:text-2xl prose-h2:font-heading prose-h2:text-[#4a0404] prose-h2:font-bold prose-h2:mb-4 prose-h2:mt-8 prose-h3:text-xl prose-h3:font-heading prose-h3:text-[#8f0f0d] prose-h3:mt-6 prose-h3:mb-3 prose-li:mb-2 prose-ul:list-disc prose-ul:pl-6">
                         <h2>1. Introduction</h2>
-                        <p>Welcome to SwaadDesh. Currently, SwaadDesh is in its pre-launch phase. This privacy policy explains how we handle the personal information you provide when joining our waitlist and interacting with our pre-launch website.</p>
+                        <p>Welcome to SwadDesh. Currently, SwadDesh is in its pre-launch phase. This privacy policy explains how we handle the personal information you provide when joining our waitlist and interacting with our pre-launch website.</p>
 
                         <h2>2. Information We Collect</h2>
                         <p>During our pre-launch phase, we collect very limited information. Specifically, when you join our waitlist or contact us, we collect:</p>
@@ -53,7 +53,7 @@ export default function PrivacyPolicy() {
 
                         <h2>7. Contact Us</h2>
                         <p>If you have any questions about this privacy policy, please contact us at:</p>
-                        <p>Email: <a href="mailto:swaaddesh111077@gmail.com" className="text-[#d4af37] font-bold hover:underline">swaaddesh111077@gmail.com</a></p>
+                        <p>Email: <a href="mailto:swaddesh111077@gmail.com" className="text-[#d4af37] font-bold hover:underline">swaddesh111077@gmail.com</a></p>
                     </div>
 
                     <div className="mt-16 text-center pt-8 border-t border-[#d4af37]/20">

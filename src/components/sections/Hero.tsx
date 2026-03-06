@@ -12,7 +12,7 @@ export const Hero = () => {
     };
 
     return (
-        <section className="relative min-h-[60vh] flex items-center justify-center pt-28 pb-4 sm:pt-36 sm:pb-10 lg:pt-40 overflow-hidden bg-[#2b0202] border-b-[6px] border-[#d4af37]">
+        <section className="relative min-h-[60vh] flex items-center justify-center pt-32 pb-4 sm:pt-28 sm:pb-10 lg:pt-32 overflow-hidden bg-[#2b0202] border-b-[6px] border-[#d4af37]">
 
             {/* Immersive Background */}
             <div className="absolute inset-0 z-0">
@@ -60,7 +60,7 @@ export const Hero = () => {
                     </div>
 
                     {/* Action Area */}
-                    <div className="pt-4 flex flex-col sm:flex-row items-center lg:items-start gap-6">
+                    <div className="pt-4 flex flex-col sm:flex-row items-center sm:justify-center lg:justify-start lg:items-start gap-6">
                         <Button
                             size="lg"
                             onClick={scrollToEarlyAccess}
@@ -116,7 +116,7 @@ export const Hero = () => {
                         {/* Main Image Container */}
                         <div className="absolute inset-0 rounded-full overflow-hidden border-[12px] border-[#4a0404] shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-10 group">
                             <Image
-                                src="/swaaddesh.png"
+                                src="/swaddesh.png"
                                 alt="Authentic Indian Food Spread"
                                 fill
                                 className="object-cover group-hover:scale-110 transition-transform duration-[2000ms] ease-out origin-center"
@@ -126,20 +126,6 @@ export const Hero = () => {
                             <div className="absolute inset-0 bg-[radial-gradient(circle,transparent_40%,rgba(43,2,2,0.6)_100%)] pointer-events-none"></div>
                         </div>
 
-                        {/* Floating Floating Badges */}
-                        <div className="absolute top-[10%] -left-[5%] sm:-left-[10%] lg:-left-[5%] z-20 bg-gradient-to-br from-[#ffffff] to-[#fffcf5] p-2 sm:p-3 rounded-2xl shadow-[0_15px_35px_rgba(0,0,0,0.3)] border border-[#d4af37]/30 animate-[float_4s_ease-in-out_infinite] backdrop-blur-md">
-                            <div className="flex items-center gap-2 sm:gap-3 border border-[#d4af37]/20 rounded-xl px-2 py-1 sm:px-4 sm:py-2 bg-white/50">
-                                <span className="text-lg sm:text-2xl">🌶️</span>
-                                <span className="font-bold text-[#4a0404] text-[10px] sm:text-sm uppercase tracking-wider font-heading">Rich Spices</span>
-                            </div>
-                        </div>
-
-                        <div className="absolute bottom-[20%] -right-[2%] sm:-right-[5%] z-20 bg-gradient-to-br from-[#ffffff] to-[#fffcf5] p-2 sm:p-3 rounded-2xl shadow-[0_15px_35px_rgba(0,0,0,0.3)] border border-[#d4af37]/30 animate-[float_5s_ease-in-out_infinite_alternate] backdrop-blur-md">
-                            <div className="flex items-center gap-2 sm:gap-3 border border-[#d4af37]/20 rounded-xl px-2 py-1 sm:px-4 sm:py-2 bg-white/50">
-                                <span className="text-lg sm:text-2xl">🍯</span>
-                                <span className="font-bold text-[#4a0404] text-[10px] sm:text-sm uppercase tracking-wider font-heading">100% Natural</span>
-                            </div>
-                        </div>
 
                         {/* Bottom Center Seal */}
                         <div className="absolute -bottom-4 sm:-bottom-6 left-1/2 -translate-x-1/2 z-30 bg-gradient-to-b from-[#d4af37] to-[#8b6914] w-[60px] h-[60px] sm:w-[90px] sm:h-[90px] rounded-full flex items-center justify-center shadow-[0_10px_20px_rgba(0,0,0,0.4)] border-[3px] sm:border-4 border-[#2b0202]">

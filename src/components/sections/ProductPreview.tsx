@@ -10,7 +10,7 @@ export const ProductPreview = () => {
     const displayProducts = productStories.slice(0, 3);
 
     return (
-        <section id="products" className="relative border-b-[4px] border-[#d4af37] pt-10 pb-4 lg:pt-24 lg:pb-12 overflow-hidden z-10 bg-[#fffcf5]">
+        <section id="products" className="relative border-b-[4px] border-[#d4af37] pt-10 pb-2 lg:pt-24 lg:pb-12 overflow-hidden z-10 bg-[#fffcf5]">
             <div className="container mx-auto px-4 md:px-6 max-w-7xl">
                 {/* Background Decor */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[2px] h-[60px] bg-gradient-to-b from-[#d4af37] to-transparent"></div>
@@ -147,7 +147,7 @@ export const ProductPreview = () => {
                     </div>
                 </div>
 
-                <div className="mt-10 lg:mt-12 text-center relative z-10 flex flex-col items-center px-4 w-full">
+                <div className="mt-4 lg:mt-12 text-center relative z-10 flex flex-col items-center px-4 w-full">
                     <div className="mt-4 text-[#8b6914] text-base sm:text-lg font-heading italic">
                         Experience our exclusive collection of 3 heritage specialties
                     </div>
