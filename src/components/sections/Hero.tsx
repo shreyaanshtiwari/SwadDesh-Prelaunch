@@ -126,12 +126,6 @@ export const Hero = () => {
                             <div className="absolute inset-0 bg-[radial-gradient(circle,transparent_40%,rgba(43,2,2,0.6)_100%)] pointer-events-none"></div>
                         </div>
 
-
-                        {/* Bottom Center Seal */}
-                        <div className="absolute -bottom-4 sm:-bottom-6 left-1/2 -translate-x-1/2 z-30 bg-gradient-to-b from-[#d4af37] to-[#8b6914] w-[60px] h-[60px] sm:w-[90px] sm:h-[90px] rounded-full flex items-center justify-center shadow-[0_10px_20px_rgba(0,0,0,0.4)] border-[3px] sm:border-4 border-[#2b0202]">
-                            <svg className="w-5 h-5 sm:w-8 sm:h-8 text-[#2b0202]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z" /></svg>
-                        </div>
-
                     </div>
                 </div>
 
