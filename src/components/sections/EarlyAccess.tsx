@@ -5,6 +5,7 @@ import { Section } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
 import { InputField } from '@/components/ui/InputField';
 import { SelectField } from '@/components/ui/SelectField';
+import { Gift, Leaf, Sparkles, Users } from 'lucide-react';
 
 const INDIAN_STATES = [
     { value: 'Andhra Pradesh', label: 'Andhra Pradesh' },
@@ -143,7 +144,7 @@ export const EarlyAccess = () => {
                     {/* Waitlist Incentive */}
                     <div className="mt-6 flex justify-center">
                         <div className="inline-flex items-center gap-2 bg-[#d4af37]/10 border border-[#d4af37]/30 px-6 py-3 rounded-full shadow-[0_4px_15px_rgba(212,175,55,0.05)]">
-                            <span className="text-[#d4af37] animate-pulse">🎁</span>
+                            <Gift className="w-5 h-5 text-[#8f0f0d] animate-pulse" strokeWidth={1.5} />
                             <span className="text-[#4a0404] font-bold text-sm tracking-wide">
                                 EXCLUSIVE: First <span className="text-[#8f0f0d]">500</span> members receive a complimentary Royal Sample Box!
                             </span>
@@ -280,7 +281,7 @@ export const EarlyAccess = () => {
                 <div className="relative z-0 !mt-4 lg:!mt-4 flex flex-nowrap justify-center items-start gap-4 sm:gap-6 md:gap-12 opacity-80 overflow-hidden max-w-full mx-auto">
                     <div className="flex flex-col items-center gap-2 group cursor-default flex-1 max-w-[100px] md:max-w-none">
                         <div className="w-10 h-10 md:w-12 md:h-12 flex-shrink-0 rounded-full border border-[#d4af37]/40 flex items-center justify-center bg-white/50 backdrop-blur-sm group-hover:bg-[#d4af37]/10 transition-colors">
-                            <span className="text-[#8f0f0d] text-base md:text-xl">🌿</span>
+                            <Leaf className="w-5 h-5 md:w-6 md:h-6 text-[#8f0f0d]" strokeWidth={1.5} />
                         </div>
                         <span className="text-[#4a0404] text-[9px] md:text-[11px] font-bold uppercase tracking-widest font-heading text-center leading-tight">
                             <span className="block">100%</span>
@@ -289,7 +290,7 @@ export const EarlyAccess = () => {
                     </div>
                     <div className="flex flex-col items-center gap-2 group cursor-default flex-1 max-w-[100px] md:max-w-none">
                         <div className="w-10 h-10 md:w-12 md:h-12 flex-shrink-0 rounded-full border border-[#d4af37]/40 flex items-center justify-center bg-white/50 backdrop-blur-sm group-hover:bg-[#d4af37]/10 transition-colors">
-                            <span className="text-[#8f0f0d] text-base md:text-xl">✨</span>
+                            <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-[#8f0f0d]" strokeWidth={1.5} />
                         </div>
                         <span className="text-[#4a0404] text-[9px] md:text-[11px] font-bold uppercase tracking-widest font-heading text-center leading-tight">
                             <span className="block">Preservative</span>
@@ -298,7 +299,7 @@ export const EarlyAccess = () => {
                     </div>
                     <div className="flex flex-col items-center gap-2 group cursor-default flex-1 max-w-[100px] md:max-w-none">
                         <div className="w-10 h-10 md:w-12 md:h-12 flex-shrink-0 rounded-full border border-[#d4af37]/40 flex items-center justify-center bg-white/50 backdrop-blur-sm group-hover:bg-[#d4af37]/10 transition-colors">
-                            <span className="text-[#8f0f0d] text-base md:text-xl">🤝</span>
+                            <Users className="w-5 h-5 md:w-6 md:h-6 text-[#8f0f0d]" strokeWidth={1.5} />
                         </div>
                         <span className="text-[#4a0404] text-[9px] md:text-[11px] font-bold uppercase tracking-widest font-heading text-center leading-tight">
                             <span className="block">Ethically</span>

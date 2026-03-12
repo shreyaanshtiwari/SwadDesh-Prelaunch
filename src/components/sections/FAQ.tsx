@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Section } from '@/components/ui/Section';
+import { ChevronDown } from 'lucide-react';
 
 const faqs = [
     {
@@ -52,9 +53,7 @@ export const FAQ = () => {
                             >
                                 <span className="font-bold text-lg sm:text-xl text-[#4a0404] font-body tracking-wide">{faq.question}</span>
                                 <span className={`transform transition-transform duration-300 flex-shrink-0 ml-4 ${openIndex === index ? 'rotate-180 text-[#d4af37]' : 'text-[#8b6914]'}`}>
-                                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                    </svg>
+                                    <ChevronDown className="w-5 h-5" strokeWidth={2} />
                                 </span>
                             </button>
 

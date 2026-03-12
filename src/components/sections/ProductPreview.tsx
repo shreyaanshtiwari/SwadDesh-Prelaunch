@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Section } from '@/components/ui/Section';
 import { Card } from '@/components/ui/Card';
 import { productStories } from '@/data/products';
+import { Crown } from 'lucide-react';
 
 export const ProductPreview = () => {
     // Only take the first 3 products for the preview section
@@ -17,8 +18,8 @@ export const ProductPreview = () => {
 
                 <div className="text-center mb-8 lg:mb-12 space-y-4 relative z-10">
                     <div className="flex justify-center">
-                        <span className="inline-block font-bold text-[#8f0f0d] uppercase tracking-[2px] mb-2 px-4 py-2 bg-[#8f0f0d]/5 rounded-full border border-[#8f0f0d]/10 text-sm">
-                            ⚜️ Our Collection
+                        <span className="inline-flex items-center gap-2 font-bold text-[#8f0f0d] uppercase tracking-[2px] mb-2 px-4 py-2 bg-[#8f0f0d]/5 rounded-full border border-[#8f0f0d]/10 text-sm">
+                            <Crown className="w-4 h-4" strokeWidth={1.5} /> Our Collection
                         </span>
                     </div>
                     <h2 className="text-3xl md:text-4xl lg:text-[56px] font-black text-[#4a0404] font-heading leading-tight max-w-3xl mx-auto drop-shadow-sm mt-4">

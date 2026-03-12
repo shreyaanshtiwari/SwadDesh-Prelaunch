@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import { Home, Users, Ban, Crown, Leaf } from 'lucide-react';
 
 export const About = () => {
     return (
@@ -56,7 +57,7 @@ export const About = () => {
                                 {/* Step 1: The Soul */}
                                 <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
                                     <div className="flex items-center justify-center w-10 h-10 rounded-full border border-[#d4af37] bg-white text-[#8f0f0d] shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 group-hover:bg-[#fef5e7] transition-colors duration-300">
-                                        <span className="text-xl">🏠</span>
+                                        <Home className="w-5 h-5" strokeWidth={1.5} />
                                     </div>
                                     <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-gradient-to-br from-[#ffffff] to-[#fffcf5] p-4 rounded-xl border border-[#d4af37]/20 shadow-[0_4px_15px_rgba(212,175,55,0.05)]">
                                         <h4 className="font-bold text-[#4a0404] font-heading">Beyond a Service</h4>
@@ -67,7 +68,7 @@ export const About = () => {
                                 {/* Step 2: The Hands */}
                                 <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
                                     <div className="flex items-center justify-center w-10 h-10 rounded-full border border-[#d4af37] bg-white text-[#8f0f0d] shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 group-hover:bg-[#fef5e7] transition-colors duration-300">
-                                        <span className="text-xl">🤝</span>
+                                        <Users className="w-5 h-5" strokeWidth={1.5} />
                                     </div>
                                     <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-gradient-to-br from-[#ffffff] to-[#fffcf5] p-4 rounded-xl border border-[#d4af37]/20 shadow-[0_4px_15px_rgba(212,175,55,0.05)]">
                                         <h4 className="font-bold text-[#4a0404] font-heading">Regional Hearts & Hands</h4>
@@ -78,7 +79,7 @@ export const About = () => {
                                 {/* Step 3: The Promise */}
                                 <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
                                     <div className="flex items-center justify-center w-10 h-10 rounded-full border border-[#d4af37] bg-white text-[#8f0f0d] shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 group-hover:bg-[#fef5e7] transition-colors duration-300">
-                                        <span className="text-xl">🚫</span>
+                                        <Ban className="w-5 h-5" strokeWidth={1.5} />
                                     </div>
                                     <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-gradient-to-br from-[#ffffff] to-[#fffcf5] p-4 rounded-xl border border-[#d4af37]/20 shadow-[0_4px_15px_rgba(212,175,55,0.05)]">
                                         <h4 className="font-bold text-[#4a0404] font-heading">Zero Factory Shortcuts</h4>
@@ -90,8 +91,8 @@ export const About = () => {
                         </div>
                         <div className="flex flex-wrap gap-6 pt-4">
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white border border-[#d4af37] shadow-sm flex items-center justify-center backdrop-blur-none shrink-0">
-                                    <span className="text-lg sm:text-xl">👑</span>
+                                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white border border-[#d4af37] shadow-sm flex items-center justify-center backdrop-blur-none shrink-0 text-[#8f0f0d]">
+                                    <Crown className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={1.5} />
                                 </div>
                                 <div>
                                     <span className="block font-heading font-bold text-[#4a0404] text-base sm:text-lg drop-shadow-none">True To Roots</span>
@@ -99,8 +100,8 @@ export const About = () => {
                                 </div>
                             </div>
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white border border-[#d4af37] shadow-sm flex items-center justify-center backdrop-blur-none shrink-0">
-                                    <span className="text-lg sm:text-xl">🌿</span>
+                                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white border border-[#d4af37] shadow-sm flex items-center justify-center backdrop-blur-none shrink-0 text-[#8f0f0d]">
+                                    <Leaf className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={1.5} />
                                 </div>
                                 <div>
                                     <span className="block font-heading font-bold text-[#4a0404] text-base sm:text-lg drop-shadow-none">No Shortcuts</span>

@@ -2,6 +2,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
+import { Sparkles, Lock, ArrowRight } from 'lucide-react';
 
 export const Hero = () => {
     const scrollToEarlyAccess = () => {
@@ -39,7 +40,7 @@ export const Hero = () => {
                     {/* Badge */}
                     <div className="flex justify-center lg:justify-start">
                         <div className="inline-flex items-center gap-2 sm:gap-3 bg-black/40 border border-[#d4af37]/40 backdrop-blur-md px-4 py-1.5 sm:px-5 sm:py-2 rounded-full shadow-[0_4px_20px_rgba(212,175,55,0.1)] max-w-full">
-                            <span className="text-[#ffd700] text-xs sm:text-sm md:text-base">✨</span>
+                            <Sparkles className="w-4 h-4 text-[#ffd700]" strokeWidth={1.5} />
                             <span className="text-[#fef5e7] text-[10px] xs:text-xs sm:text-sm md:text-base font-bold tracking-[2px] sm:tracking-[3px] uppercase font-heading whitespace-nowrap">
                                 Taste Your Roots
                             </span>
@@ -68,16 +69,14 @@ export const Hero = () => {
                         >
                             <span className="relative z-10 flex items-center justify-center gap-2">
                                 Claim Early Access
-                                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                </svg>
+                                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </span>
                             <div className="absolute inset-0 bg-gradient-to-r from-[#ffd700] to-[#d4af37] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         </Button>
 
                         <div className="flex items-center gap-4 text-[#e6d5c3] font-medium">
-                            <span className="flex items-center justify-center w-10 h-10 rounded-full border border-[#d4af37]/30 bg-black/20 backdrop-blur-sm">
-                                🔒
+                            <span className="flex items-center justify-center w-10 h-10 rounded-full border border-[#d4af37]/30 bg-black/20 backdrop-blur-sm text-[#ffd700]">
+                                <Lock className="w-4 h-4" strokeWidth={1.5} />
                             </span>
                             <span className="text-sm tracking-wide whitespace-nowrap">Invite Only Waitlist</span>
                         </div>

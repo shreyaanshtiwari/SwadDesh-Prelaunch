@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
             allow: '/',
             disallow: ['/api/'],
         },
-        sitemap: 'https://swaddesh.com/sitemap.xml', // Replace with actual domain later
+        sitemap: 'https://swaddesh.in/sitemap.xml', // Replace with actual domain later
     };
 }

@@ -6,19 +6,19 @@ const features = [
     {
         title: '100% Authentic',
         description: 'We source strictly from original regions to preserve the native taste and traditional preparation methods lost to time.',
-        icon: <ShieldCheck className="w-10 h-10 text-[#ffd700]" strokeWidth={1.5} />,
+        icon: <ShieldCheck className="w-10 h-10 text-[#8f0f0d]" strokeWidth={1.5} />,
         accent: 'The Golden Promise'
     },
     {
         title: 'Direct from Artisans',
         description: 'We partner exclusively with local producers and rural cooperatives, ensuring fair trade and unmatched heritage quality.',
-        icon: <HandHeart className="w-10 h-10 text-[#ffd700]" strokeWidth={1.5} />,
+        icon: <HandHeart className="w-10 h-10 text-[#8f0f0d]" strokeWidth={1.5} />,
         accent: 'Empowering Roots'
     },
     {
         title: 'No Preservatives',
         description: 'Pure, noble ingredients. Zero artificial colors, flavors, or chemical preservatives. Just honest, royal delicacies.',
-        icon: <Leaf className="w-10 h-10 text-[#ffd700]" strokeWidth={1.5} />,
+        icon: <Leaf className="w-10 h-10 text-[#8f0f0d]" strokeWidth={1.5} />,
         accent: 'Unadulterated Purity'
     },
 ];
@@ -66,7 +66,7 @@ export const WhyChooseUs = () => {
                         {/* Icon Container */}
                         <div className="relative mb-8 z-10">
                             <div className="w-20 h-20 rounded-full bg-[#fdfbf7] flex items-center justify-center border border-[#d4af37] shadow-[0_0_20px_rgba(212,175,55,0.15)] group-hover:scale-110 transition-transform duration-500 ease-out group-hover:shadow-[0_0_30px_rgba(212,175,55,0.25)]">
-                                {React.cloneElement(feature.icon as React.ReactElement, { className: "w-10 h-10 text-[#d4af37]" } as any)}
+                                {React.cloneElement(feature.icon as React.ReactElement, { className: "w-10 h-10 text-[#8f0f0d]" } as any)}
                             </div>
                             <div className="absolute -inset-2 border border-[#d4af37] border-dashed rounded-full opacity-30 group-hover:rotate-45 transition-transform duration-1000"></div>
                         </div>
