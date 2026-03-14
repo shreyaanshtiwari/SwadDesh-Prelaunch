@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Section } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
 import { InputField } from '@/components/ui/InputField';
+import { TextAreaField } from '@/components/ui/TextAreaField';
 import { SelectField } from '@/components/ui/SelectField';
 import { Gift, Leaf, Sparkles, Users } from 'lucide-react';
 
@@ -52,7 +53,8 @@ export const EarlyAccess = () => {
         email: '', 
         phone: '', 
         state: '', 
-        interests: '' 
+        interests: '',
+        comments: '' 
     });
     const [agreedToTerms, setAgreedToTerms] = useState(false);
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -69,9 +71,9 @@ export const EarlyAccess = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (!formData.name.trim() || !formData.email.trim() || !formData.phone.trim()) {
+        if (!formData.name.trim() || !formData.email.trim() || !formData.phone.trim() || !formData.state || !formData.interests.trim()) {
             setStatus('error');
-            setMessage('Name, email and phone number are required.');
+            setMessage('All fields except comments are required.');
             return;
         }
 
@@ -107,7 +109,7 @@ export const EarlyAccess = () => {
             if (response.ok) {
                 setStatus('success');
                 setMessage(data.message || 'You are successfully added to the early access list. You will receive launch updates and exclusive discounts.');
-                setFormData({ name: '', email: '', phone: '', state: '', interests: '' });
+                setFormData({ name: '', email: '', phone: '', state: '', interests: '', comments: '' });
                 setAgreedToTerms(false);
             } else {
                 setStatus('error');
@@ -229,6 +231,14 @@ export const EarlyAccess = () => {
                                         disabled={status === 'loading'}
                                     />
                                 </div>
+
+                                <TextAreaField
+                                    label="Message / Feedback / Suggestions"
+                                    placeholder="Share your thoughts, suggestions, or what you'd like to see from us... (Optional)"
+                                    value={formData.comments}
+                                    onChange={(e) => setFormData({ ...formData, comments: e.target.value })}
+                                    disabled={status === 'loading'}
+                                />
 
                                 {/* Terms & Privacy Policy Checkbox */}
                                 <label className="flex items-start gap-3 cursor-pointer group select-none">

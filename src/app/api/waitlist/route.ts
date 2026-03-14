@@ -6,7 +6,7 @@ const GOOGLE_SHEETS_WEB_APP_URL = process.env.GOOGLE_SHEETS_WEB_APP_URL || '';
 export async function POST(request: Request) {
     try {
         const body = await request.json();
-        const { name, email, phone, state, interests } = body;
+        const { name, email, phone, state, interests, comments } = body;
 
         // 1. Validation
         if (!name || !name.trim()) {
@@ -38,6 +38,7 @@ export async function POST(request: Request) {
                 phone: phone.replace(/\s/g, ''),
                 state: state || '',
                 interests: interests || '',
+                comments: comments || '',
                 timestamp: new Date().toISOString()
             }),
             headers: {
