@@ -29,7 +29,7 @@ export const ProductPreview = () => {
 
                 {/* Two Anonymous Mystery Cards */}
                 <div className="max-w-4xl mx-auto relative z-10">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+                    <div className="grid grid-cols-2 gap-4 sm:gap-8 lg:gap-12">
                         
                         {/* Mystery Card 1 */}
                         <div className="relative group">
