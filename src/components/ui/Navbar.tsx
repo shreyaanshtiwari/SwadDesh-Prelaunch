@@ -71,13 +71,6 @@ export const Navbar = () => {
                     >
                         Values
                     </button>
-                    <button
-                        onClick={() => scrollToSection('founders')}
-                        className="text-[#fef5e7] hover:text-[#ffd700] text-sm font-medium tracking-wide uppercase transition-colors"
-                        suppressHydrationWarning
-                    >
-                        Founders
-                    </button>
                 </div>
 
                 {/* CTA & Mobile Menu */}

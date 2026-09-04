@@ -1,7 +1,35 @@
 /**
  * Google Apps Script to handle Waitlist Form Submissions & Lookups
- * Saves data to Google Sheets, provides lookup by email/referral code, and sends confirmation email.
+ * Saves data to Google Sheets with 12 Standard Columns:
+ * Col 1  (A): Timestamp (Formatted Indian Standard Time: DD/MM/YYYY HH:MM:SS AM/PM)
+ * Col 2  (B): Name
+ * Col 3  (C): Email
+ * Col 4  (D): Phone
+ * Col 5  (E): State
+ * Col 6  (F): Interests
+ * Col 7  (G): Email Status
+ * Col 8  (H): Comments
+ * Col 9  (I): Referral Code
+ * Col 10 (J): Referred By
+ * Col 11 (K): Total Invites
+ * Col 12 (L): Milestone
  */
+
+// Helper to format timestamps cleanly into Indian Standard Time (IST)
+function formatTimestampIST(dateInput) {
+  try {
+    if (!dateInput) {
+      return Utilities.formatDate(new Date(), "Asia/Kolkata", "dd/MM/yyyy hh:mm:ss a");
+    }
+    const d = new Date(dateInput);
+    if (isNaN(d.getTime())) {
+      return Utilities.formatDate(new Date(), "Asia/Kolkata", "dd/MM/yyyy hh:mm:ss a");
+    }
+    return Utilities.formatDate(d, "Asia/Kolkata", "dd/MM/yyyy hh:mm:ss a");
+  } catch (e) {
+    return Utilities.formatDate(new Date(), "Asia/Kolkata", "dd/MM/yyyy hh:mm:ss a");
+  }
+}
 
 // Deterministic Referral Code Generator (Identical to Website algorithm)
 function generateReferralCodeForEmail(email) {
@@ -28,6 +56,45 @@ function generateReferralCodeForEmail(email) {
   return 'SD-' + code;
 }
 
+function getMilestoneTitle(count) {
+  if (count >= 25) return "Founder's Box";
+  if (count >= 10) return "Founding Member Benefits";
+  if (count >= 3) return "Priority Early Access";
+  return "Early Access List";
+}
+
+/**
+ * Standard 12-Column Layout:
+ * Col 1  (A): Timestamp
+ * Col 2  (B): Name
+ * Col 3  (C): Email
+ * Col 4  (D): Phone
+ * Col 5  (E): State
+ * Col 6  (F): Interests
+ * Col 7  (G): Email Status
+ * Col 8  (H): Comments
+ * Col 9  (I): Referral Code
+ * Col 10 (J): Referred By
+ * Col 11 (K): Total Invites
+ * Col 12 (L): Milestone
+ */
+function getColumnMap(sheet) {
+  return {
+    timestamp: 0,
+    name: 1,
+    email: 2,
+    phone: 3,
+    state: 4,
+    interests: 5,
+    emailStatus: 6,
+    comments: 7,
+    referralCode: 8,
+    referredBy: 9,
+    totalInvites: 10,
+    milestone: 11
+  };
+}
+
 function doGet(e) {
   try {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -50,19 +117,17 @@ function doGet(e) {
       })).setMimeType(ContentService.MimeType.JSON);
     }
 
-    // Read columns A through K (11 columns)
-    const data = waitlistSheet.getRange(2, 1, lastRow - 1, 11).getValues();
+    const numCols = Math.max(waitlistSheet.getLastColumn(), 12);
+    const data = waitlistSheet.getRange(2, 1, lastRow - 1, numCols).getValues();
+
     for (let i = 0; i < data.length; i++) {
       const row = data[i];
       const rowEmail = (row[2] || '').toString().toLowerCase().trim();
       const rowCode = (row[8] || '').toString().toUpperCase().trim();
 
       if ((emailToFind && rowEmail === emailToFind) || (codeToFind && (rowCode === codeToFind || generateReferralCodeForEmail(rowEmail) === codeToFind))) {
-        let refCode = rowCode;
-        if (!refCode) {
-          refCode = generateReferralCodeForEmail(rowEmail);
-          waitlistSheet.getRange(i + 2, 9).setValue(refCode);
-        }
+        let refCode = rowCode || generateReferralCodeForEmail(rowEmail);
+        waitlistSheet.getRange(i + 2, 9).setValue(refCode);
 
         // Count active referrals in Google Sheet
         let activeReferrals = 0;
@@ -73,6 +138,10 @@ function doGet(e) {
             activeReferrals++;
           }
         }
+
+        const milestone = getMilestoneTitle(activeReferrals);
+        waitlistSheet.getRange(i + 2, 11).setValue(activeReferrals);
+        waitlistSheet.getRange(i + 2, 12).setValue(milestone);
 
         return ContentService.createTextOutput(JSON.stringify({
           'status': 'success',
@@ -86,7 +155,8 @@ function doGet(e) {
             'referral_code': refCode,
             'referred_by': row[9] || '',
             'successful_referrals': activeReferrals,
-            'current_milestone': row[10] || 'Early Access List',
+            'total_invites': activeReferrals,
+            'current_milestone': milestone,
             'created_at': row[0] || new Date().toISOString()
           }
         })).setMimeType(ContentService.MimeType.JSON);
@@ -119,18 +189,16 @@ function doPost(e) {
       const codeToFind = (data.code || '').toUpperCase().trim();
       const lastRow = waitlistSheet.getLastRow();
       if (lastRow > 1) {
-        const rows = waitlistSheet.getRange(2, 1, lastRow - 1, 11).getValues();
+        const numCols = Math.max(waitlistSheet.getLastColumn(), 12);
+        const rows = waitlistSheet.getRange(2, 1, lastRow - 1, numCols).getValues();
         for (let i = 0; i < rows.length; i++) {
           const row = rows[i];
           const rowEmail = (row[2] || '').toString().toLowerCase().trim();
           const rowCode = (row[8] || '').toString().toUpperCase().trim();
 
           if ((emailToFind && rowEmail === emailToFind) || (codeToFind && (rowCode === codeToFind || generateReferralCodeForEmail(rowEmail) === codeToFind))) {
-            let refCode = rowCode;
-            if (!refCode) {
-              refCode = generateReferralCodeForEmail(rowEmail);
-              waitlistSheet.getRange(i + 2, 9).setValue(refCode);
-            }
+            let refCode = rowCode || generateReferralCodeForEmail(rowEmail);
+            waitlistSheet.getRange(i + 2, 9).setValue(refCode);
 
             // Count active referrals in Google Sheet
             let activeReferrals = 0;
@@ -141,6 +209,10 @@ function doPost(e) {
                 activeReferrals++;
               }
             }
+
+            const milestone = getMilestoneTitle(activeReferrals);
+            waitlistSheet.getRange(i + 2, 11).setValue(activeReferrals);
+            waitlistSheet.getRange(i + 2, 12).setValue(milestone);
 
             return ContentService.createTextOutput(JSON.stringify({
               'status': 'success',
@@ -154,7 +226,8 @@ function doPost(e) {
                 'referral_code': refCode,
                 'referred_by': row[9] || '',
                 'successful_referrals': activeReferrals,
-                'current_milestone': row[10] || 'Early Access List',
+                'total_invites': activeReferrals,
+                'current_milestone': milestone,
                 'created_at': row[0] || new Date().toISOString()
               }
             })).setMimeType(ContentService.MimeType.JSON);
@@ -173,9 +246,16 @@ function doPost(e) {
     const phoneDigits = (data.phone || '').toString().replace(/\D/g, '').slice(-10);
     const lastRow = waitlistSheet.getLastRow();
     const finalReferralCode = data.referral_code || generateReferralCodeForEmail(emailToFind);
+    let cleanReferredBy = (data.referred_by || '').toString().trim().toUpperCase();
+
+    // Prevent fake self-referral
+    if (cleanReferredBy === finalReferralCode) {
+      cleanReferredBy = '';
+    }
 
     if (lastRow > 1) {
-      const rows = waitlistSheet.getRange(2, 1, lastRow - 1, 11).getValues();
+      const numCols = Math.max(waitlistSheet.getLastColumn(), 12);
+      const rows = waitlistSheet.getRange(2, 1, lastRow - 1, numCols).getValues();
       let emailMatchRow = null;
       let emailMatchIndex = -1;
       let phoneMatchRow = null;
@@ -218,12 +298,23 @@ function doPost(e) {
       if (emailMatchRow && phoneMatchRow && emailMatchIndex === phoneMatchIndex) {
         const row = emailMatchRow;
         let refCode = (row[8] || '').toString().trim() || finalReferralCode;
-        let referredBy = (row[9] || '').toString().trim() || data.referred_by || '';
-        let milestone = (row[10] || '').toString().trim() || data.current_milestone || 'Early Access List';
+        let referredBy = (row[9] || '').toString().trim() || cleanReferredBy;
+        
+        // Count active referrals
+        let activeReferrals = 0;
+        for (let j = 0; j < rows.length; j++) {
+          if (j === emailMatchIndex) continue;
+          const otherRefBy = (rows[j][9] || '').toString().toUpperCase().trim();
+          if (otherRefBy && (otherRefBy === refCode || otherRefBy.startsWith(refCode) || refCode.startsWith(otherRefBy))) {
+            activeReferrals++;
+          }
+        }
+        let milestone = getMilestoneTitle(activeReferrals);
 
         waitlistSheet.getRange(emailMatchIndex + 2, 9).setValue(refCode);
         if (referredBy) waitlistSheet.getRange(emailMatchIndex + 2, 10).setValue(referredBy);
-        waitlistSheet.getRange(emailMatchIndex + 2, 11).setValue(milestone);
+        waitlistSheet.getRange(emailMatchIndex + 2, 11).setValue(activeReferrals);
+        waitlistSheet.getRange(emailMatchIndex + 2, 12).setValue(milestone);
 
         return ContentService.createTextOutput(JSON.stringify({
           'status': 'success',
@@ -238,6 +329,8 @@ function doPost(e) {
             'comments': row[7] || data.comments || '',
             'referral_code': refCode,
             'referred_by': referredBy,
+            'successful_referrals': activeReferrals,
+            'total_invites': activeReferrals,
             'current_milestone': milestone,
             'created_at': row[0] || new Date().toISOString()
           }
@@ -245,43 +338,82 @@ function doPost(e) {
       }
     }
 
-    const timestamp = data.timestamp || new Date().toISOString();
+    const timestampIST = formatTimestampIST(data.timestamp);
 
-    // 1. Append to Primary Waitlist Sheet
-    // Columns: Timestamp, Name, Email, Phone, State, Interests, Email Status, Comments, Referral Code, Referred By, Milestone
+    // 1. Append to Primary Waitlist Sheet (12 Columns Standard)
+    // 1:Timestamp, 2:Name, 3:Email, 4:Phone, 5:State, 6:Interests, 7:Email Status, 8:Comments, 9:Referral Code, 10:Referred By, 11:Total Invites, 12:Milestone
     waitlistSheet.appendRow([
-      timestamp,
+      timestampIST,
       data.name,
       data.email,
       data.phone,
-      data.state,
-      data.interests,
+      data.state || '',
+      data.interests || '',
       "Sent", // Email Status
-      data.comments || '',
-      finalReferralCode,
-      data.referred_by || '',
-      data.current_milestone || 'Early Access List'
+      data.comments || '', // Comments
+      finalReferralCode, // Referral Code
+      cleanReferredBy, // Referred By
+      0, // Total Invites
+      'Early Access List' // Milestone
     ]);
 
-    // 2. Append to Reviews Table (if comments present)
-    if (data.comments && data.comments.trim() && reviewsSheet) {
-        reviewsSheet.appendRow([
-            timestamp,
-            data.name,
-            data.comments.trim(),
-            data.email
-        ]);
+    // 2. Automatically update Referrer's Total Invites & Milestone in Google Sheet
+    if (cleanReferredBy && lastRow > 1) {
+      const updatedLastRow = waitlistSheet.getLastRow();
+      const allRows = waitlistSheet.getRange(2, 1, updatedLastRow - 1, 12).getValues();
+
+      for (let r = 0; r < allRows.length; r++) {
+        const rowCode = (allRows[r][8] || '').toString().trim().toUpperCase();
+        if (rowCode && (cleanReferredBy === rowCode || cleanReferredBy.startsWith(rowCode) || rowCode.startsWith(cleanReferredBy))) {
+          let count = 0;
+          for (let k = 0; k < allRows.length; k++) {
+            const refBy = (allRows[k][9] || '').toString().trim().toUpperCase();
+            if (refBy && (refBy === rowCode || refBy.startsWith(rowCode) || rowCode.startsWith(refBy))) {
+              count++;
+            }
+          }
+
+          waitlistSheet.getRange(r + 2, 11).setValue(count);
+          waitlistSheet.getRange(r + 2, 12).setValue(getMilestoneTitle(count));
+        }
+      }
     }
 
-    // Send Confirmation Email
-    sendConfirmationEmail({
-      ...data,
-      referral_code: finalReferralCode
-    });
+    // 3. Append review if present
+    if (reviewsSheet && data.comments && data.comments.trim()) {
+      reviewsSheet.appendRow([
+        timestampIST,
+        data.name,
+        data.email,
+        data.comments,
+        'Pending'
+      ]);
+    }
+
+    // 4. Send Confirmation Email
+    try {
+      sendConfirmationEmail(data, finalReferralCode);
+    } catch (mailError) {
+      Logger.log("Mail error: " + mailError.toString());
+    }
 
     return ContentService.createTextOutput(JSON.stringify({
       'status': 'success',
-      'message': 'Successfully added to waitlist'
+      'message': 'Successfully registered on waitlist',
+      'member': {
+        'name': data.name,
+        'email': emailToFind,
+        'phone': (data.phone || '').toString(),
+        'state': data.state || '',
+        'interests': data.interests || '',
+        'comments': data.comments || '',
+        'referral_code': finalReferralCode,
+        'referred_by': cleanReferredBy,
+        'successful_referrals': 0,
+        'total_invites': 0,
+        'current_milestone': 'Early Access List',
+        'created_at': timestampIST
+      }
     })).setMimeType(ContentService.MimeType.JSON);
 
   } catch (error) {
@@ -292,10 +424,9 @@ function doPost(e) {
   }
 }
 
-function sendConfirmationEmail(data) {
-  const subject = "Welcome to the Royal SwadDesh Waitlist";
-  const logoUrl = "https://swaddesh.in/Logo.png";
-  const inviteCode = data.referral_code || '';
+function sendConfirmationEmail(data, inviteCode) {
+  const subject = "SwadDesh - Your Royal Early Access Invitation";
+  const logoUrl = "https://raw.githubusercontent.com/shreyaanshtiwari/SwaadDesh-Prelaunch/main/public/images/logo.png";
   const inviteLink = inviteCode ? `https://swaddesh.in/?ref=${inviteCode}` : 'https://swaddesh.in';
   
   const htmlBody = `
@@ -348,39 +479,164 @@ function sendConfirmationEmail(data) {
 }
 
 /**
- * ⚡ 1-Click Auto-Fill for Existing Rows:
- * Select "backfillMissingReferralCodes" in the top dropdown of Apps Script and click "Run".
- * It uses the EXACT SAME deterministic algorithm as the website so codes match 100%!
+ * 🛠️ 1-CLICK COMPLETE REPAIR & DATA REORGANIZATION:
+ * Select "fixAndReorganizeSheetData" in Apps Script dropdown and click "Run".
+ * It will automatically remove Number Verification, format clean Indian Date & Time,
+ * restore Comments to Comments column, Referral Code, Referred By, Total Invites, and Milestones!
  */
-function backfillMissingReferralCodes() {
+function fixAndReorganizeSheetData() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const sheet = ss.getActiveSheet();
   const lastRow = sheet.getLastRow();
-  
+  const lastCol = sheet.getLastColumn();
+
   if (lastRow <= 1) {
-    Logger.log("No data rows to update.");
+    Logger.log("No data to fix.");
     return;
   }
-  
-  const values = sheet.getRange(2, 1, lastRow - 1, 11).getValues();
-  let count = 0;
-  
-  for (let i = 0; i < values.length; i++) {
-    const row = values[i];
-    const email = (row[2] || '').toString().trim();
-    if (!email) continue;
-    
-    // Check Column I (Referral Code)
-    const exactCode = generateReferralCodeForEmail(email);
-    sheet.getRange(i + 2, 9).setValue(exactCode);
-    count++;
-    
-    // Check Column K (Milestone)
-    let milestone = (row[10] || '').toString().trim();
-    if (!milestone) {
-      sheet.getRange(i + 2, 11).setValue('Early Access List');
+
+  // Read all existing raw data rows
+  const rawData = sheet.getRange(2, 1, lastRow - 1, Math.max(lastCol, 13)).getValues();
+  const cleanRows = [];
+
+  // Pass 1: Parse and restore each field cleanly
+  for (let i = 0; i < rawData.length; i++) {
+    const r = rawData[i];
+    const timestamp = formatTimestampIST(r[0]);
+    const name = r[1] || 'Founding Member';
+    const email = (r[2] || '').toString().trim();
+    const phone = (r[3] || '').toString().trim();
+    const state = r[4] || '';
+    const interests = r[5] || '';
+    const emailStatus = (r[6] || '').toString().trim() || 'Sent';
+
+    // Figure out comments
+    let comment = '';
+    const col7 = (r[7] || '').toString().trim();
+    const col8 = (r[8] || '').toString().trim();
+    if (col7 && !col7.toLowerCase().includes('verified') && !col7.startsWith('SD-')) {
+      comment = col7;
+    } else if (col8 && !col8.startsWith('SD-') && !col8.toLowerCase().includes('verified')) {
+      comment = col8;
     }
+
+    // Referral Code
+    let refCode = '';
+    const col8Text = (r[8] || '').toString().trim();
+    const col9Text = (r[9] || '').toString().trim();
+    if (col8Text.startsWith('SD-')) {
+      refCode = col8Text;
+    } else if (col9Text.startsWith('SD-')) {
+      refCode = col9Text;
+    } else if (email) {
+      refCode = generateReferralCodeForEmail(email);
+    }
+
+    // Referred By
+    let referredBy = '';
+    const col10Text = (r[10] || '').toString().trim();
+    const col9Ref = (r[9] || '').toString().trim();
+    if (col9Ref && !col9Ref.startsWith('SD-') && !col9Ref.includes('Early Access') && !col9Ref.includes('Milestone')) {
+      referredBy = col9Ref;
+    } else if (col10Text && !col10Text.includes('Early Access') && !col10Text.includes('Milestone') && !col10Text.includes('Founding')) {
+      referredBy = col10Text;
+    }
+
+    cleanRows.push({
+      timestamp,
+      name,
+      email,
+      phone,
+      state,
+      interests,
+      emailStatus,
+      comment,
+      refCode,
+      referredBy
+    });
   }
-  
-  Logger.log("Successfully synced " + count + " rows with exact website matching referral codes.");
+
+  // Pass 2: Calculate live Total Invites and Milestone
+  const outputData = [];
+  for (let i = 0; i < cleanRows.length; i++) {
+    const item = cleanRows[i];
+    
+    let invites = 0;
+    if (item.refCode) {
+      for (let j = 0; j < cleanRows.length; j++) {
+        if (j === i) continue;
+        if (cleanRows[j].referredBy && cleanRows[j].referredBy.toUpperCase() === item.refCode.toUpperCase()) {
+          invites++;
+        }
+      }
+    }
+
+    const milestone = getMilestoneTitle(invites);
+
+    outputData.push([
+      item.timestamp,   // Col 1 (A)
+      item.name,        // Col 2 (B)
+      item.email,       // Col 3 (C)
+      item.phone,       // Col 4 (D)
+      item.state,       // Col 5 (E)
+      item.interests,   // Col 6 (F)
+      item.emailStatus, // Col 7 (G)
+      item.comment,     // Col 8 (H)
+      item.refCode,     // Col 9 (I)
+      item.referredBy,  // Col 10 (J)
+      invites,          // Col 11 (K)
+      milestone         // Col 12 (L)
+    ]);
+  }
+
+  // Clear existing content beyond Row 1 and write clean output
+  const headers = [
+    'Timestamp',
+    'Name',
+    'Email',
+    'Phone',
+    'State',
+    'Interests',
+    'Email Status',
+    'Comments',
+    'Referral Code',
+    'Referred By',
+    'Total Invites',
+    'Milestone'
+  ];
+
+  sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
+  const headerRange = sheet.getRange(1, 1, 1, headers.length);
+  headerRange.setBackground('#800020'); // Royal Burgundy
+  headerRange.setFontColor('#ffd700'); // Gold
+  headerRange.setFontWeight('bold');
+  headerRange.setFontSize(11);
+  headerRange.setHorizontalAlignment('center');
+  sheet.setFrozenRows(1);
+
+  if (lastCol > headers.length) {
+    sheet.getRange(1, headers.length + 1, lastRow, lastCol - headers.length).clearContent().clearFormat();
+  }
+
+  sheet.getRange(2, 1, outputData.length, headers.length).setValues(outputData);
+
+  for (let c = 1; c <= headers.length; c++) {
+    sheet.autoResizeColumn(c);
+  }
+
+  Logger.log("🎉 Successfully organized all rows into 12 clean columns with Indian Date & Time format!");
+}
+
+/**
+ * ⚡ 1-Click Header Setup
+ */
+function setupSheetHeaders() {
+  fixAndReorganizeSheetData();
+}
+
+/**
+ * ⚡ 1-Click Auto-Fill
+ */
+function backfillMissingReferralCodes() {
+  fixAndReorganizeSheetData();
 }

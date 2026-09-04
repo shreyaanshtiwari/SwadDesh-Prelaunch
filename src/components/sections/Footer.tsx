@@ -1,6 +1,5 @@
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 
 export const Footer = () => {
     return (
@@ -36,12 +35,8 @@ export const Footer = () => {
                     </a>
                 </div>
 
-                <div className="pt-3 mt-2 text-sm text-[#d4af37]/60 w-full border-t border-[#d4af37]/20 flex flex-col md:flex-row justify-between items-center gap-2 md:gap-4">
+                <div className="pt-3 mt-2 text-sm text-[#d4af37]/60 w-full border-t border-[#d4af37]/20 flex flex-col md:flex-row justify-center items-center gap-2 md:gap-4">
                     <p className="tracking-wide">© {new Date().getFullYear()} Swaddesh. All rights reserved.</p>
-                    <div className="flex gap-4 md:gap-6">
-                        <Link href="/privacy" className="hover:text-[#ffd700] transition-colors">Privacy Policy</Link>
-                        <Link href="/terms" className="hover:text-[#ffd700] transition-colors">Terms of Service</Link>
-                    </div>
                 </div>
             </div>
         </footer>

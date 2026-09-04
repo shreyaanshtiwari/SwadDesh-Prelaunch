@@ -8,7 +8,7 @@ import { TextAreaField } from '@/components/ui/TextAreaField';
 import { SelectField } from '@/components/ui/SelectField';
 import { FoundingDashboard } from '@/components/founding/FoundingDashboard';
 import { FoundingMember } from '@/types/foundingMember';
-import { Gift, Leaf, Sparkles, Users, Search, ArrowLeft } from 'lucide-react';
+import { Gift, Sparkles, Search, ArrowLeft } from 'lucide-react';
 
 const INDIAN_STATES = [
     { value: 'Andhra Pradesh', label: 'Andhra Pradesh' },
@@ -60,7 +60,7 @@ export const EarlyAccess = () => {
     });
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
     const [message, setMessage] = useState('');
-    
+
     // Founding Member & Referral state
     const [referredByCode, setReferredByCode] = useState<string>('');
     const [currentMember, setCurrentMember] = useState<FoundingMember | null>(null);
@@ -136,6 +136,12 @@ export const EarlyAccess = () => {
         return /^[6-9]\d{9}$/.test(phone.replace(/\s/g, ''));
     };
 
+    const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const val = e.target.value.replace(/\D/g, '').slice(0, 10);
+        setFormData({ ...formData, phone: val });
+        if (fieldErrors.phone) setFieldErrors((prev) => ({ ...prev, phone: undefined }));
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -147,13 +153,13 @@ export const EarlyAccess = () => {
 
         if (!validateEmail(formData.email)) {
             setStatus('error');
-            setMessage('Please enter a valid email address.');
+            setFieldErrors({ email: 'Please enter a valid email address.' });
             return;
         }
 
         if (!validatePhone(formData.phone)) {
             setStatus('error');
-            setMessage('Please enter a valid 10-digit Indian mobile number.');
+            setFieldErrors({ phone: 'Please enter a valid 10-digit Indian mobile number.' });
             return;
         }
 
@@ -162,9 +168,18 @@ export const EarlyAccess = () => {
 
         try {
             const storedReferrer = typeof window !== 'undefined' ? sessionStorage.getItem('swaddesh_referred_by') : '';
+            const rawRef = (referredByCode || storedReferrer || '').trim().toUpperCase();
+            // Valid referral codes match alphanumeric format like SD-ABC123 (no spaces, 4-12 chars)
+            const cleanReferrer = (/^[A-Z0-9-]{4,12}$/.test(rawRef) && !rawRef.includes(' ')) ? rawRef : undefined;
+
             const payload = {
-                ...formData,
-                referred_by: referredByCode || storedReferrer || undefined,
+                name: formData.name.trim(),
+                email: formData.email.toLowerCase().trim(),
+                phone: formData.phone.trim(),
+                state: formData.state || '',
+                interests: formData.interests || '',
+                comments: formData.comments || '',
+                referred_by: cleanReferrer,
             };
 
             const response = await fetch('/api/waitlist', {
@@ -183,9 +198,7 @@ export const EarlyAccess = () => {
                     localStorage.setItem('swaddesh_member_data', JSON.stringify(data.member));
                 }
                 if (data.is_existing) {
-                    setExistingNotice(`This email and mobile number were already registered. Signed in as ${data.member?.email} (${data.member?.phone}).`);
-                } else {
-                    setExistingNotice(null);
+                    setExistingNotice(data.message || 'Welcome back!');
                 }
                 setFormData({ name: '', email: '', phone: '', state: '', interests: '', comments: '' });
             } else {
@@ -320,22 +333,20 @@ export const EarlyAccess = () => {
 
                             {/* Check Status / Lookup Form Modal/Box */}
                             {isLookupOpen ? (
-                                <div className="relative z-10 bg-white p-8 sm:p-10 rounded-2xl shadow-[0_25px_80px_rgba(107,10,9,0.08)] border border-[#d4af37]/40 text-left space-y-6">
-                                    <div className="flex items-center justify-between border-b border-[#d4af37]/20 pb-3">
-                                        <h3 className="font-heading font-bold text-xl text-[#4a0404]">
-                                            Check Founding Status
-                                        </h3>
+                                <div className="relative z-10 bg-white p-8 rounded-2xl shadow-[0_25px_80px_rgba(107,10,9,0.08)] border border-[#d4af37]/40 text-left space-y-6 animate-in fade-in zoom-in-95 duration-200">
+                                    <div className="flex items-center justify-between border-b border-[#d4af37]/20 pb-4">
+                                        <div className="flex items-center gap-2">
+                                            <Search className="w-5 h-5 text-[#8f0f0d]" />
+                                            <h3 className="font-bold text-[#4a0404] text-base">Check Status / Resume Session</h3>
+                                        </div>
                                         <button
                                             type="button"
                                             onClick={() => setIsLookupOpen(false)}
-                                            className="text-xs text-[#8b6914] hover:text-[#4a0404] font-semibold flex items-center gap-1"
+                                            className="text-xs text-[#8b6914] hover:text-[#4a0404] flex items-center gap-1 font-semibold"
                                         >
-                                            <ArrowLeft className="w-3.5 h-3.5" /> Back to Signup
+                                            <ArrowLeft className="w-3.5 h-3.5" /> Back
                                         </button>
                                     </div>
-                                    <p className="text-xs text-[#5d4037]">
-                                        Enter the email address or unique referral code (e.g. SD-XXXXXX) you used when joining the waitlist.
-                                    </p>
                                     <form onSubmit={handleLookupSubmit} className="space-y-4">
                                         <InputField
                                             label="Email Address or Referral Code"
@@ -371,14 +382,21 @@ export const EarlyAccess = () => {
                                         <InputField
                                             label="Full Name"
                                             type="text"
+                                            name="name"
+                                            id="name"
+                                            autoComplete="name"
                                             placeholder="e.g. Rahul Sharma"
                                             value={formData.name}
                                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                             disabled={status === 'loading'}
+                                            required
                                         />
                                         <InputField
                                             label="Email Address"
                                             type="email"
+                                            name="email"
+                                            id="email"
+                                            autoComplete="email"
                                             placeholder="rahul@example.com"
                                             value={formData.email}
                                             onChange={(e) => {
@@ -387,21 +405,43 @@ export const EarlyAccess = () => {
                                             }}
                                             disabled={status === 'loading'}
                                             error={fieldErrors.email}
+                                            required
                                         />
-                                        <div className="space-y-1">
-                                            <InputField
-                                                label="Phone Number"
-                                                type="tel"
-                                                placeholder="e.g. 98765 43210"
-                                                value={formData.phone}
-                                                onChange={(e) => {
-                                                    setFormData({ ...formData, phone: e.target.value });
-                                                    if (fieldErrors.phone) setFieldErrors((prev) => ({ ...prev, phone: undefined }));
-                                                }}
-                                                disabled={status === 'loading'}
-                                                error={fieldErrors.phone}
-                                            />
-                                            <p className="text-[10px] text-[#8b6914] ml-1 opacity-80 font-medium">✨ No spam. Highly Secured.</p>
+                                        
+                                        {/* Mobile Number Field */}
+                                        <div className="space-y-2 group">
+                                            <label htmlFor="phone" className="text-[13px] font-bold uppercase tracking-[1px] text-[#8b6914] ml-1 group-focus-within:text-[#d4af37] transition-colors flex items-center gap-1">
+                                                <span>Mobile Number</span>
+                                                <span className="text-red-500">*</span>
+                                            </label>
+
+                                            <div className="relative flex items-center">
+                                                <div className="absolute left-3.5 top-1/2 -translate-y-1/2 flex items-center gap-1.5 text-sm font-bold text-[#8b6914] pointer-events-none z-10">
+                                                    <span>🇮🇳 +91</span>
+                                                    <span className="text-[#d4af37]/50">|</span>
+                                                </div>
+                                                <input
+                                                    type="tel"
+                                                    name="phone"
+                                                    id="phone"
+                                                    autoComplete="tel"
+                                                    placeholder="98765 43210"
+                                                    value={formData.phone}
+                                                    onChange={handlePhoneChange}
+                                                    disabled={status === 'loading'}
+                                                    maxLength={10}
+                                                    required
+                                                    className={`flex h-[52px] w-full rounded-xl border-2 pl-20 pr-4 py-2 text-sm font-semibold tracking-wider text-[#4a0404] placeholder:text-[#5d4037]/50 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-[#d4af37]/10 focus:border-[#d4af37] hover:border-[#d4af37] shadow-sm bg-white ${
+                                                        fieldErrors.phone
+                                                            ? 'border-red-500 bg-red-50/20'
+                                                            : 'border-[#d4af37]/60'
+                                                    }`}
+                                                />
+                                            </div>
+
+                                            {fieldErrors.phone && (
+                                                <p className="text-xs font-semibold text-red-600 ml-1">{fieldErrors.phone}</p>
+                                            )}
                                         </div>
                                         
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -432,9 +472,17 @@ export const EarlyAccess = () => {
                                             <div className="relative">
                                                 <input
                                                     type="text"
+                                                    name="referral_code_input"
+                                                    id="referralCodeInput"
+                                                    autoComplete="off"
+                                                    data-form-type="other"
+                                                    data-lpignore="true"
                                                     placeholder="e.g. SD-87QYA8"
                                                     value={referredByCode}
-                                                    onChange={(e) => setReferredByCode(e.target.value.toUpperCase())}
+                                                    onChange={(e) => {
+                                                        const clean = e.target.value.toUpperCase().replace(/[^A-Z0-9-]/g, '').slice(0, 12);
+                                                        setReferredByCode(clean);
+                                                    }}
                                                     disabled={status === 'loading'}
                                                     className="flex h-[52px] w-full rounded-xl border-2 border-[#d4af37]/60 bg-white px-4 py-2 text-sm font-mono uppercase text-[#4a0404] placeholder:text-[#5d4037]/50 font-medium transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-[#d4af37]/10 focus:border-[#d4af37] hover:border-[#d4af37] shadow-sm"
                                                 />
@@ -479,47 +527,14 @@ export const EarlyAccess = () => {
                                             onClick={() => setIsLookupOpen(true)}
                                             className="text-xs text-[#8b6914] hover:text-[#4a0404] font-semibold underline underline-offset-4 transition-colors"
                                         >
-                                            Already registered? View your Founding status & invites
+                                            Already registered? Click here to access your Founding Member Dashboard →
                                         </button>
                                     </div>
-
                                 </form>
                             )}
                         </div>
-
-                        {/* Trust Badges under Form */}
-                        <div className="relative z-0 !mt-4 lg:!mt-4 flex flex-nowrap justify-center items-start gap-4 sm:gap-6 md:gap-12 opacity-80 overflow-hidden max-w-full mx-auto">
-                            <div className="flex flex-col items-center gap-2 group cursor-default flex-1 max-w-[100px] md:max-w-none">
-                                <div className="w-10 h-10 md:w-12 md:h-12 flex-shrink-0 rounded-full border border-[#d4af37]/40 flex items-center justify-center bg-white/50 backdrop-blur-sm group-hover:bg-[#d4af37]/10 transition-colors">
-                                    <Leaf className="w-5 h-5 md:w-6 md:h-6 text-[#8f0f0d]" strokeWidth={1.5} />
-                                </div>
-                                <span className="text-[#4a0404] text-[9px] md:text-[11px] font-bold uppercase tracking-widest font-heading text-center leading-tight">
-                                    <span className="block">100%</span>
-                                    <span className="block">Organic</span>
-                                </span>
-                            </div>
-                            <div className="flex flex-col items-center gap-2 group cursor-default flex-1 max-w-[100px] md:max-w-none">
-                                <div className="w-10 h-10 md:w-12 md:h-12 flex-shrink-0 rounded-full border border-[#d4af37]/40 flex items-center justify-center bg-white/50 backdrop-blur-sm group-hover:bg-[#d4af37]/10 transition-colors">
-                                    <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-[#8f0f0d]" strokeWidth={1.5} />
-                                </div>
-                                <span className="text-[#4a0404] text-[9px] md:text-[11px] font-bold uppercase tracking-widest font-heading text-center leading-tight">
-                                    <span className="block">Preservative</span>
-                                    <span className="block">Free</span>
-                                </span>
-                            </div>
-                            <div className="flex flex-col items-center gap-2 group cursor-default flex-1 max-w-[100px] md:max-w-none">
-                                <div className="w-10 h-10 md:w-12 md:h-12 flex-shrink-0 rounded-full border border-[#d4af37]/40 flex items-center justify-center bg-white/50 backdrop-blur-sm group-hover:bg-[#d4af37]/10 transition-colors">
-                                    <Users className="w-5 h-5 md:w-6 md:h-6 text-[#8f0f0d]" strokeWidth={1.5} />
-                                </div>
-                                <span className="text-[#4a0404] text-[9px] md:text-[11px] font-bold uppercase tracking-widest font-heading text-center leading-tight">
-                                    <span className="block">Ethically</span>
-                                    <span className="block">Sourced</span>
-                                </span>
-                            </div>
-                        </div>
                     </>
                 )}
-
             </div>
         </Section>
     );

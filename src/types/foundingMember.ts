@@ -29,6 +29,8 @@ export interface FoundingMember {
     interests: string;
     comments?: string;
     favourite_product?: string;
+    phone_verified?: string | boolean;
+    number_verification?: string;
     referral_code: string;
     referred_by?: string;
     successful_referrals: number;
