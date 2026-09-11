@@ -111,17 +111,28 @@ export default async function ProductDetailPage({ params }: Props) {
                                 </p>
                             </div>
 
-                            <div className="pt-6 space-y-6">
-                                <Link
-                                    href="/#early-access"
-                                    className="group relative inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-10 py-4 sm:py-5 bg-gradient-to-r from-[#8f0f0d] to-[#6b0a09] text-[#ffd700] font-bold tracking-[1px] sm:tracking-[2px] uppercase rounded-full shadow-[0_10px_30px_rgba(143,15,13,0.3)] hover:shadow-[0_15px_40px_rgba(212,175,55,0.4)] transition-all duration-300 border border-[#d4af37]/50 text-xs sm:text-base whitespace-nowrap"
-                                >
-                                    Experience the Legend
-                                    <span className="group-hover:translate-x-1 transition-transform">→</span>
-                                </Link>
-                                <p className="text-[#8b6914] text-xs font-heading italic text-center sm:text-left">
-                                    * Currently available for exclusive pre-launch waitlist
-                                </p>
+                            {/* Pre-Launch Showcase Only Notice */}
+                            <div className="pt-4 space-y-4">
+                                <div className="bg-gradient-to-r from-[#2b0202] to-[#3a0303] border border-[#d4af37]/60 rounded-2xl p-5 sm:p-6 shadow-lg space-y-2">
+                                    <div className="inline-flex items-center gap-1.5 bg-[#d4af37]/20 border border-[#d4af37]/40 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider text-[#ffd700]">
+                                        <span>Showcase Preview Only</span>
+                                    </div>
+                                    <h4 className="text-base sm:text-lg font-bold font-heading text-[#fef5e7]">
+                                        Currently Not Available for Order
+                                    </h4>
+                                    <p className="text-xs sm:text-sm text-[#e6d5c3]/80 leading-relaxed font-light">
+                                        This delicacy is currently in pre-launch preview for our waitlist members to explore authentic regional origins. Ordering will officially open on launch day.
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <Link
+                                        href="/#products"
+                                        className="inline-flex items-center gap-2 px-6 py-3.5 bg-white hover:bg-[#fdfbf7] text-[#4a0404] hover:text-[#8f0f0d] font-bold text-xs sm:text-sm uppercase tracking-wider rounded-xl border-2 border-[#d4af37]/60 shadow-sm transition-all hover:scale-102"
+                                    >
+                                        <span>← Back to Heritage Delicacies</span>
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                     </div>
