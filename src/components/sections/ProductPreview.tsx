@@ -104,7 +104,7 @@ export const ProductPreview = () => {
                                 Welcome <strong className="text-[#4a0404] not-italic">{member?.name || 'Founding Patron'}</strong>! Your Early Access has unlocked the secret inaugural batch selections handcrafted by our generational master artisans.
                             </span>
                         ) : (
-                            'Authentic generational recipes being prepared by historic master artisans. Secret inaugural batch selections are locked for Early Access patrons.'
+                            'Authentic generational recipes being prepared by historic master artisans. Join waitlist to see the products and uncover their master vendors.'
                         )}
                     </p>
                 </div>
@@ -269,8 +269,9 @@ export const ProductPreview = () => {
                                     <div className="relative z-20 text-[#e6d5c3]/70 text-[9px] sm:text-[11px] mt-1 italic">
                                         Jaipur Artisanal Treasure
                                     </div>
-                                    <div className="relative z-20 mt-4 bg-[#ffd700]/10 border border-[#ffd700]/30 rounded-full px-3 py-1 text-[9px] sm:text-[10px] text-[#ffd700] font-semibold opacity-80 group-hover:opacity-100 transition-opacity">
-                                        Join Early Access to Unlock 🔓
+                                    <div className="relative z-20 mt-3 sm:mt-5 bg-gradient-to-r from-[#ffd700] to-[#d4af37] text-[#2b0202] rounded-full px-3 sm:px-4 py-1.5 text-[9px] sm:text-xs font-black tracking-wide shadow-md group-hover:shadow-[0_0_15px_rgba(255,215,0,0.4)] group-hover:scale-105 transition-all flex items-center gap-1.5">
+                                        <Lock className="w-3 h-3 text-[#2b0202] flex-shrink-0" />
+                                        <span>Join waitlist to see the products</span>
                                     </div>
                                 </div>
                             </div>
@@ -294,8 +295,9 @@ export const ProductPreview = () => {
                                     <div className="relative z-20 text-[#e6d5c3]/70 text-[9px] sm:text-[11px] mt-1 italic">
                                         Generational Halwai Recipe
                                     </div>
-                                    <div className="relative z-20 mt-4 bg-[#ffd700]/10 border border-[#ffd700]/30 rounded-full px-3 py-1 text-[9px] sm:text-[10px] text-[#ffd700] font-semibold opacity-80 group-hover:opacity-100 transition-opacity">
-                                        Join Early Access to Unlock 🔓
+                                    <div className="relative z-20 mt-3 sm:mt-5 bg-gradient-to-r from-[#ffd700] to-[#d4af37] text-[#2b0202] rounded-full px-3 sm:px-4 py-1.5 text-[9px] sm:text-xs font-black tracking-wide shadow-md group-hover:shadow-[0_0_15px_rgba(255,215,0,0.4)] group-hover:scale-105 transition-all flex items-center gap-1.5">
+                                        <Lock className="w-3 h-3 text-[#2b0202] flex-shrink-0" />
+                                        <span>Join waitlist to see the products</span>
                                     </div>
                                 </div>
                             </div>
@@ -319,14 +321,14 @@ export const ProductPreview = () => {
                     ) : (
                         <div className="space-y-4">
                             <p className="text-[#8f0f0d] text-sm sm:text-base font-heading font-bold">
-                                Want to see the secret inaugural delicacies &amp; their legendary artisans?
+                                Secret inaugural delicacies are hidden in the vault
                             </p>
                             <button
                                 onClick={scrollToEarlyAccess}
-                                className="inline-flex items-center gap-2 bg-gradient-to-r from-[#d4af37] to-[#b8860b] text-[#2b0202] px-6 py-3 rounded-full font-bold uppercase tracking-wider text-xs sm:text-sm shadow-md hover:scale-105 transition-all cursor-pointer border border-[#ffd700]/40"
+                                className="inline-flex items-center gap-2 bg-gradient-to-r from-[#d4af37] to-[#b8860b] hover:from-[#e5bd3d] hover:to-[#c99710] text-[#2b0202] px-6 sm:px-8 py-3.5 rounded-full font-black uppercase tracking-wider text-xs sm:text-sm shadow-xl hover:scale-105 transition-all cursor-pointer border-2 border-[#ffd700]"
                             >
                                 <Unlock className="w-4 h-4" />
-                                <span>Claim Early Access to Unlock Vault →</span>
+                                <span>Join waitlist to see the products →</span>
                             </button>
                         </div>
                     )}
