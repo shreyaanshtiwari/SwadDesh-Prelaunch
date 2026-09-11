@@ -504,13 +504,42 @@ function getRegionalGreeting(state) {
 function sendConfirmationEmail(data, inviteCode) {
   const greeting = getRegionalGreeting(data ? data.state : '');
   const subject = "SwadDesh - Your Royal Early Access Invitation";
-  const logoUrl = "https://raw.githubusercontent.com/shreyaanshtiwari/SwaadDesh-Prelaunch/main/public/images/logo.png";
   const inviteLink = inviteCode ? `https://swaddesh.in/?ref=${inviteCode}` : 'https://swaddesh.in';
   
+  // Reliable & Optimized Logo URLs (Fast Multi-CDN & GitHub)
+  const optimizedCdnLogoUrl = "https://cdn.jsdelivr.net/gh/shreyaanshtiwari/SwadDesh-Prelaunch@main/public/images/logo.png";
+  const rawGitHubLogoUrl = "https://raw.githubusercontent.com/shreyaanshtiwari/SwadDesh-Prelaunch/main/public/images/logo.png";
+  const fallbackRepoLogoUrl = "https://raw.githubusercontent.com/shreyaanshtiwari/SwadDesh-Prelaunch/main/public/Logo.png";
+
+  let inlineImages = {};
+  let logoSrc = optimizedCdnLogoUrl;
+
+  // Embed logo directly as an inline image (CID) so it loads INSTANTLY (0ms) in Gmail/Apple Mail/Outlook
+  try {
+    let logoBlob = null;
+    const urlsToTry = [optimizedCdnLogoUrl, rawGitHubLogoUrl, fallbackRepoLogoUrl];
+    for (let i = 0; i < urlsToTry.length; i++) {
+      try {
+        const resp = UrlFetchApp.fetch(urlsToTry[i], { muteHttpExceptions: true });
+        if (resp.getResponseCode() === 200) {
+          logoBlob = resp.getBlob().setName("swaddeshLogo.png");
+          break;
+        }
+      } catch (err) {}
+    }
+
+    if (logoBlob) {
+      inlineImages["swaddeshLogo"] = logoBlob;
+      logoSrc = "cid:swaddeshLogo";
+    }
+  } catch (e) {
+    Logger.log("Inline logo embed notice: " + e.toString());
+  }
+
   const htmlBody = `
     <div style="font-family: 'Georgia', serif; max-width: 600px; margin: 0 auto; border: 2px solid #d4af37; background-color: #1a0101; color: #fdfbf7; overflow: hidden; border-radius: 8px;">
-      <div style="text-align: center; padding: 40px 20px; border-bottom: 1px solid #d4af37;">
-        <img src="${logoUrl}" alt="SwadDesh Logo" style="width: 180px; display: block; margin: 0 auto;">
+      <div style="text-align: center; padding: 35px 20px 25px 20px; border-bottom: 1px solid #d4af37;">
+        <img src="${logoSrc}" alt="SwadDesh Logo" style="width: 180px; max-width: 100%; height: auto; display: block; margin: 0 auto;">
         <div style="height: 1px; width: 60px; background-color: #d4af37; margin: 20px auto 0 auto;"></div>
       </div>
       
@@ -550,10 +579,16 @@ function sendConfirmationEmail(data, inviteCode) {
     </div>
   `;
 
-  GmailApp.sendEmail(data.email, subject, "", {
+  const emailOptions = {
     htmlBody: htmlBody,
     name: "SwadDesh Heritage"
-  });
+  };
+
+  if (inlineImages["swaddeshLogo"]) {
+    emailOptions.inlineImages = inlineImages;
+  }
+
+  GmailApp.sendEmail(data.email, subject, "", emailOptions);
 }
 
 /**
