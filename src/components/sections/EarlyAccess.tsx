@@ -196,6 +196,9 @@ export const EarlyAccess = () => {
                 if (data.member) {
                     setCurrentMember(data.member);
                     localStorage.setItem('swaddesh_member_data', JSON.stringify(data.member));
+                    if (typeof window !== 'undefined') {
+                        window.dispatchEvent(new CustomEvent('swaddesh_member_updated', { detail: data.member }));
+                    }
                 }
                 if (data.is_existing) {
                     setExistingNotice(data.message || 'Welcome back!');
@@ -239,6 +242,9 @@ export const EarlyAccess = () => {
                 setIsLookupOpen(false);
                 setLookupStatus('idle');
                 localStorage.setItem('swaddesh_member_data', JSON.stringify(data.member));
+                if (typeof window !== 'undefined') {
+                    window.dispatchEvent(new CustomEvent('swaddesh_member_updated', { detail: data.member }));
+                }
             } else {
                 setLookupStatus('error');
                 setLookupError(data.error || 'Member not found. Please check and try again.');
@@ -255,6 +261,7 @@ export const EarlyAccess = () => {
         setExistingNotice(null);
         if (typeof window !== 'undefined') {
             localStorage.removeItem('swaddesh_member_data');
+            window.dispatchEvent(new CustomEvent('swaddesh_member_updated', { detail: null }));
         }
     };
 

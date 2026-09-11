@@ -68,12 +68,28 @@ export default async function ProductDetailPage({ params }: Props) {
                         {/* Right: Heritage & Details */}
                         <div className="space-y-6 flex flex-col justify-center">
                             <div className="space-y-2">
-                                <span className="inline-block text-[#8f0f0d] font-bold uppercase tracking-[4px] text-xs mb-3">
-                                    {product.origin}
-                                </span>
-                                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-[#4a0404] font-heading leading-tight mb-4">
+                                <div className="flex flex-wrap items-center gap-2 mb-2">
+                                    <span className="inline-block text-[#8f0f0d] font-bold uppercase tracking-[4px] text-xs">
+                                        {product.origin}
+                                    </span>
+                                    {product.packaging && (
+                                        <>
+                                            <span className="text-[#d4af37] text-xs">•</span>
+                                            <span className="text-[#8b6914] text-xs font-semibold bg-[#d4af37]/10 px-2 py-0.5 rounded border border-[#d4af37]/20">
+                                                {product.packaging}
+                                            </span>
+                                        </>
+                                    )}
+                                </div>
+                                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-[#4a0404] font-heading leading-tight mb-3">
                                     {product.name}
                                 </h1>
+                                {product.vendor && (
+                                    <div className="inline-flex items-center gap-2 bg-[#d4af37]/15 border border-[#d4af37]/40 px-3.5 py-1.5 rounded-full text-xs font-bold text-[#4a0404] mb-2">
+                                        <span className="opacity-80">Heritage Artisan:</span>
+                                        <span className="text-[#8f0f0d] font-heading font-black">{product.vendor}</span>
+                                    </div>
+                                )}
                                 <p className="text-xl sm:text-2xl text-[#8b6914] font-heading italic">
                                     "{product.tagline}"
                                 </p>

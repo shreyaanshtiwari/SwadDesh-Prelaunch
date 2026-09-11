@@ -233,6 +233,36 @@ export const FoundingDashboard: React.FC<FoundingDashboardProps> = ({
                 </div>
             </div>
 
+            {/* Heritage Vault Unlocked Notification */}
+            <div className="bg-gradient-to-r from-[#fef5e7] via-[#fff9e6] to-[#fef5e7] border-2 border-[#d4af37] rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-md">
+                <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-full bg-[#8f0f0d] flex items-center justify-center flex-shrink-0 text-white shadow-sm mt-0.5">
+                        <Sparkles className="w-5 h-5 text-[#ffd700]" />
+                    </div>
+                    <div className="space-y-1 text-left">
+                        <div className="inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-wider text-[#1b7e3b] bg-[#e8f5e9] border border-[#a5d6a7] px-2 py-0.5 rounded-full">
+                            <span>Heritage Vault Unlocked</span>
+                        </div>
+                        <h4 className="text-sm sm:text-base font-bold font-heading text-[#4a0404]">
+                            2 Secret Delicacies Revealed: Lehsun Chutney &amp; Mohanthal
+                        </h4>
+                        <p className="text-xs text-[#5d4037] leading-relaxed">
+                            Handcrafted by <strong>Vijaylal Aachar Wale (Jaipur)</strong> and <strong>Sondhya Halwai</strong>.
+                        </p>
+                    </div>
+                </div>
+                <button
+                    onClick={() => {
+                        const el = document.getElementById('products');
+                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }}
+                    type="button"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#ffd700] bg-[#2b0202] hover:bg-[#4a0404] px-4 py-2.5 rounded-xl border border-[#d4af37]/60 shadow-sm transition-all hover:scale-102 flex-shrink-0 cursor-pointer"
+                >
+                    <span>View Revealed Delicacies ↑</span>
+                </button>
+            </div>
+
             {/* Member Card Bar */}
             <div className="bg-white rounded-2xl border border-[#d4af37]/50 p-5 sm:p-6 shadow-[0_10px_30px_rgba(107,10,9,0.06)] grid grid-cols-2 md:grid-cols-4 gap-4 items-center">
                 <div className="space-y-0.5">
