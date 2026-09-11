@@ -424,7 +424,85 @@ function doPost(e) {
   }
 }
 
+/**
+ * Maps each Indian State / Union Territory to its authentic regional greeting.
+ * e.g. Rajasthan -> 'Khamma Ghani', Punjab -> 'Sat Shri Akaal', Tamil Nadu -> 'Vanakkam'
+ */
+function getRegionalGreeting(state) {
+  if (!state) return "Pranam";
+  
+  const cleanState = state.toString().trim().toLowerCase();
+
+  const greetingMap = {
+    'rajasthan': 'Khamma Ghani',
+    'punjab': 'Sat Shri Akaal',
+    'chandigarh': 'Sat Shri Akaal',
+    'haryana': 'Ram Ram',
+    'gujarat': 'Kem Cho',
+    'dadra and nagar haveli and daman and diu': 'Kem Cho',
+    'maharashtra': 'Namaskar',
+    'goa': 'Namaskar',
+    'west bengal': 'Nomoshkar',
+    'bengal': 'Nomoshkar',
+    'assam': 'Nomoskar',
+    'odisha': 'Namaskar',
+    'orissa': 'Namaskar',
+    'tamil nadu': 'Vanakkam',
+    'tamilnadu': 'Vanakkam',
+    'puducherry': 'Vanakkam',
+    'pondicherry': 'Vanakkam',
+    'kerala': 'Namaskaram',
+    'andhra pradesh': 'Namaskaram',
+    'andhra': 'Namaskaram',
+    'telangana': 'Namaskaram',
+    'karnataka': 'Namaskara',
+    'bihar': 'Pranam',
+    'uttar pradesh': 'Pranam',
+    'up': 'Pranam',
+    'madhya pradesh': 'Pranam',
+    'mp': 'Pranam',
+    'uttarakhand': 'Pranam',
+    'himachal pradesh': 'Pranam',
+    'himachal': 'Pranam',
+    'chhattisgarh': 'Jai Johar',
+    'jharkhand': 'Johar',
+    'jammu and kashmir': 'Adaab',
+    'jammu & kashmir': 'Adaab',
+    'kashmir': 'Adaab',
+    'ladakh': 'Julley',
+    'sikkim': 'Tashi Delek',
+    'arunachal pradesh': 'Tashi Delek',
+    'arunachal': 'Tashi Delek',
+    'manipur': 'Khurumjari',
+    'meghalaya': 'Khublei',
+    'mizoram': 'Chibai',
+    'nagaland': 'Namaste',
+    'tripura': 'Khulumkha',
+    'delhi': 'Namaste',
+    'new delhi': 'Namaste',
+    'andaman and nicobar islands': 'Namaste',
+    'andaman': 'Namaste',
+    'lakshadweep': 'Namaskaram'
+  };
+
+  // 1. Direct exact match
+  if (greetingMap[cleanState]) {
+    return greetingMap[cleanState];
+  }
+
+  // 2. Substring matching for variations
+  for (const key in greetingMap) {
+    if (cleanState.indexOf(key) !== -1 || key.indexOf(cleanState) !== -1) {
+      return greetingMap[key];
+    }
+  }
+
+  // 3. Elegant default fallback
+  return 'Pranam';
+}
+
 function sendConfirmationEmail(data, inviteCode) {
+  const greeting = getRegionalGreeting(data ? data.state : '');
   const subject = "SwadDesh - Your Royal Early Access Invitation";
   const logoUrl = "https://raw.githubusercontent.com/shreyaanshtiwari/SwaadDesh-Prelaunch/main/public/images/logo.png";
   const inviteLink = inviteCode ? `https://swaddesh.in/?ref=${inviteCode}` : 'https://swaddesh.in';
@@ -437,7 +515,7 @@ function sendConfirmationEmail(data, inviteCode) {
       </div>
       
       <div style="padding: 40px;">
-        <p style="font-size: 18px; line-height: 1.6; margin-bottom: 25px; color: #ffd700;">Pranam <strong>${data.name}</strong>,</p>
+        <p style="font-size: 18px; line-height: 1.6; margin-bottom: 25px; color: #ffd700;">${greeting} <strong>${data.name}</strong>,</p>
         
         <p style="font-size: 16px; line-height: 1.6; margin-bottom: 25px; color: #fdfbf7; opacity: 0.9;">
           Thank you for joining the exclusive SwadDesh waitlist. We are thrilled to have you with us on this journey to rediscover the authentic, royal heritage flavors of Bharat.
@@ -640,3 +718,21 @@ function setupSheetHeaders() {
 function backfillMissingReferralCodes() {
   fixAndReorganizeSheetData();
 }
+
+/**
+ * ⚡ Test Function: Preview Regional Greeting Email
+ * Select "testRegionalGreetingEmail" in Apps Script dropdown and click "Run".
+ * It will send a preview email to your Gmail address with a state-specific greeting (e.g. Rajasthan -> Khamma Ghani).
+ */
+function testRegionalGreetingEmail() {
+  const myEmail = Session.getActiveUser().getEmail();
+  const sampleData = {
+    name: "Royal Guest",
+    email: myEmail,
+    state: "Rajasthan"
+  };
+  Logger.log("Testing greeting for state: " + sampleData.state + " -> " + getRegionalGreeting(sampleData.state));
+  sendConfirmationEmail(sampleData, "SD-ROYAL7");
+  Logger.log("Test email sent to " + myEmail + " with greeting: " + getRegionalGreeting(sampleData.state));
+}
+
